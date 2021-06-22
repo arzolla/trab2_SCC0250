@@ -16,4 +16,4 @@ de Viewing 3D (Matrizes Model x View x Projection).
 
 **INSTRUÇÕES:**
 
-Execute o arquivo /dev/trab2.py para rodar o programa
+Execute o arquivo /code/trab2.py para rodar o programa
