@@ -13,6 +13,6 @@ de Viewing 3D (Matrizes Model x View x Projection).
 
 **NUSP:** *9039312*
 
-### **INSTRUÇÕES:**
+### Instruções:
 
 Execute o arquivo ```/code/trab2.py``` para rodar o programa
