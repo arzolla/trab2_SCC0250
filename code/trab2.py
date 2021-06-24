@@ -22,7 +22,7 @@ sys.path.append(os.path.join(sys.path[0],'sources'))
 # Importa módulo com os codigos referentes aos shaders e buffer
 import shader_buffer as sb
 # Importa módulo com os codigos referentes aos comandos de teclado
-#import key_commands as cmd
+import commands as cmd
 #import objects as obj
 
 
@@ -205,9 +205,6 @@ load_texture_from_file(3,tex_path('monstro.jpg'))
 
 
 
-
-
-
 #########################################
 #########################################
 
@@ -343,76 +340,13 @@ def desenha_monstro(rotacao_inc):
 #########################################
 #########################################
 
-cameraPos   = glm.vec3(0.0,  0.0,  1.0);
-cameraFront = glm.vec3(0.0,  0.0, -1.0);
-cameraUp    = glm.vec3(0.0,  1.0,  0.0);
 
+cmd.commands(window,altura,largura)
 
-polygonal_mode = False
-
-def key_event(window,key,scancode,action,mods):
-    global cameraPos, cameraFront, cameraUp, polygonal_mode
-    
-    cameraSpeed = 0.2
-    if key == 87 and (action==1 or action==2): # tecla W
-        cameraPos += cameraSpeed * cameraFront
-    
-    if key == 83 and (action==1 or action==2): # tecla S
-        cameraPos -= cameraSpeed * cameraFront
-    
-    if key == 65 and (action==1 or action==2): # tecla A
-        cameraPos -= glm.normalize(glm.cross(cameraFront, cameraUp)) * cameraSpeed
-        
-    if key == 68 and (action==1 or action==2): # tecla D
-        cameraPos += glm.normalize(glm.cross(cameraFront, cameraUp)) * cameraSpeed
-        
-    if key == 80 and action==1 and polygonal_mode==True:
-        polygonal_mode=False
-    else:
-        if key == 80 and action==1 and polygonal_mode==False:
-            polygonal_mode=True
-        
-        
-        
-firstMouse = True
-yaw = -90.0 
-pitch = 0.0
-lastX =  largura/2
-lastY =  altura/2
-
-def mouse_event(window, xpos, ypos):
-    global firstMouse, cameraFront, yaw, pitch, lastX, lastY
-    if firstMouse:
-        lastX = xpos
-        lastY = ypos
-        firstMouse = False
-
-    xoffset = xpos - lastX
-    yoffset = lastY - ypos
-    lastX = xpos
-    lastY = ypos
-
-    sensitivity = 0.3 
-    xoffset *= sensitivity
-    yoffset *= sensitivity
-
-    yaw += xoffset;
-    pitch += yoffset;
-
-    
-    if pitch >= 90.0: pitch = 90.0
-    if pitch <= -90.0: pitch = -90.0
-
-    front = glm.vec3()
-    front.x = math.cos(glm.radians(yaw)) * math.cos(glm.radians(pitch))
-    front.y = math.sin(glm.radians(pitch))
-    front.z = math.sin(glm.radians(yaw)) * math.cos(glm.radians(pitch))
-    cameraFront = glm.normalize(front)
 
 
     
-glfw.set_key_callback(window,key_event)
-glfw.set_cursor_pos_callback(window, mouse_event)
+
 
 
 #########################################
@@ -438,18 +372,6 @@ def model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z):
     
     return matrix_transform
 
-def view():
-    global cameraPos, cameraFront, cameraUp
-    mat_view = glm.lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-    mat_view = np.array(mat_view)
-    return mat_view
-
-def projection():
-    global altura, largura
-    # perspective parameters: fovy, aspect, near, far
-    mat_projection = glm.perspective(glm.radians(45.0), largura/altura, 0.1, 1000.0)
-    mat_projection = np.array(mat_projection)    
-    return mat_projection
 
 
 
@@ -460,7 +382,7 @@ def projection():
 
 # Mostra a janela
 glfw.show_window(window)
-glfw.set_cursor_pos(window, lastX, lastY)
+glfw.set_cursor_pos(window, cmd.lastX, cmd.lastY)
 
 glEnable(GL_DEPTH_TEST) ### importante para 3D
    
@@ -482,9 +404,9 @@ while not glfw.window_should_close(window):
     
     glClearColor(1.0, 1.0, 1.0, 1.0)
     
-    if polygonal_mode==True:
+    if cmd.polygonal_mode==True:
         glPolygonMode(GL_FRONT_AND_BACK,GL_LINE)
-    if polygonal_mode==False:
+    if cmd.polygonal_mode==False:
         glPolygonMode(GL_FRONT_AND_BACK,GL_FILL)
     
     
@@ -498,11 +420,11 @@ while not glfw.window_should_close(window):
   
 
     
-    mat_view = view()
+    mat_view = cmd.view(cmd.cameraPos, cmd.cameraFront, cmd.cameraUp)
     loc_view = glGetUniformLocation(program, "view")
     glUniformMatrix4fv(loc_view, 1, GL_FALSE, mat_view)
 
-    mat_projection = projection()
+    mat_projection = cmd.projection(altura,largura)
     loc_projection = glGetUniformLocation(program, "projection")
     glUniformMatrix4fv(loc_projection, 1, GL_FALSE, mat_projection)    
     
