@@ -122,7 +122,16 @@ def load_texture_from_file(texture_id, img_textura):
 vertices_list = []    
 textures_coord_list = []
 
-modelo = load_model_from_file(os.path.join(sys.path[0],'sources','caixa','caixa.obj'))
+def obj_path(obj):
+    path = os.path.join(sys.path[0],'models',obj)
+    return path
+
+def tex_path(tex):
+    path = os.path.join(sys.path[0],'textures',tex)
+    return path
+
+
+modelo = load_model_from_file(obj_path('caixa.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo cube.obj. Vertice inicial:',len(vertices_list))
@@ -137,10 +146,10 @@ print('Processando modelo cube.obj. Vertice final:',len(vertices_list))
 
 
 ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(0,os.path.join(sys.path[0],'sources','caixa','caixa2.jpg'))
+load_texture_from_file(0,tex_path('caixa2.jpg'))
 
 
-modelo = load_model_from_file('terreno/terreno2.obj')
+modelo = load_model_from_file(obj_path('terreno2.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo terreno.obj. Vertice inicial:',len(vertices_list))
@@ -155,9 +164,9 @@ print('Processando modelo terreno.obj. Vertice final:',len(vertices_list))
 
 
 ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(1,'terreno/pedra.jpg')
+load_texture_from_file(1,tex_path('pedra.jpg'))
 
-modelo = load_model_from_file('casa/casa.obj')
+modelo = load_model_from_file(obj_path('casa.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo casa.obj. Vertice inicial:',len(vertices_list))
@@ -172,10 +181,10 @@ print('Processando modelo casa.obj. Vertice final:',len(vertices_list))
 
 
 ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(2,'casa/casa.jpg')
+load_texture_from_file(2,tex_path('casa.jpg'))
 
 
-modelo = load_model_from_file('monstro/monstro.obj')
+modelo = load_model_from_file(obj_path('monstro.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo monstro.obj. Vertice inicial:',len(vertices_list))
@@ -190,7 +199,7 @@ print('Processando modelo monstro.obj. Vertice final:',len(vertices_list))
 
 
 ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(3,'monstro/monstro.jpg')
+load_texture_from_file(3,tex_path('monstro.jpg'))
 
 
 
