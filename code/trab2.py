@@ -11,12 +11,12 @@
 # Importando dependências
 import glfw
 from OpenGL.GL import *
-#import OpenGL.GL.shaders
+import OpenGL.GL.shaders
 import numpy as np
-import math as m
+import math
+import glm
 import sys, os
 sys.path.append(os.path.join(sys.path[0],'sources'))
-
 
 # Importa módulo com os codigos referentes aos shaders e buffer
 from shader_buffer import *
@@ -32,8 +32,11 @@ else:
     print("Erro na inicialização do GLFW")
 
 # criando a janela
-glfw.window_hint(glfw.VISIBLE, glfw.FALSE)
-window = glfw.create_window(720, 720, "Janela", None, None)
+glfw.init()
+glfw.window_hint(glfw.VISIBLE, glfw.FALSE);
+altura = 720
+largura = 720
+window = glfw.create_window(largura, altura, "Trabalho 2 - Cenário 3D", None, None)
 glfw.make_context_current(window)
 
 
