@@ -50,8 +50,6 @@ program = sb.run_shader()
 #########################################
 
 
-# Instanciação dos vértices
-
 def load_model_from_file(filename):
     """Loads a Wavefront OBJ file. """
     objects = {}

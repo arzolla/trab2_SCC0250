@@ -82,9 +82,6 @@ def run_shader():
 ###########################
 
 
-# Request a buffer slot from GPU
-
-
 # Função para configurar os buffers de textura
 def vertex_buffer(program, vertices):
 
