@@ -122,7 +122,7 @@ def load_texture_from_file(texture_id, img_textura):
 vertices_list = []    
 textures_coord_list = []
 
-def obj_path(obj):
+def mod_path(obj):
     path = os.path.join(sys.path[0],'models',obj)
     return path
 
@@ -131,7 +131,10 @@ def tex_path(tex):
     return path
 
 
-modelo = load_model_from_file(obj_path('caixa.obj'))
+#def declare_obj
+
+
+modelo = load_model_from_file(mod_path('caixa.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo cube.obj. Vertice inicial:',len(vertices_list))
@@ -149,7 +152,7 @@ print('Processando modelo cube.obj. Vertice final:',len(vertices_list))
 load_texture_from_file(0,tex_path('caixa2.jpg'))
 
 
-modelo = load_model_from_file(obj_path('terreno2.obj'))
+modelo = load_model_from_file(mod_path('terreno2.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo terreno.obj. Vertice inicial:',len(vertices_list))
@@ -166,7 +169,7 @@ print('Processando modelo terreno.obj. Vertice final:',len(vertices_list))
 ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
 load_texture_from_file(1,tex_path('pedra.jpg'))
 
-modelo = load_model_from_file(obj_path('casa.obj'))
+modelo = load_model_from_file(mod_path('casa.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo casa.obj. Vertice inicial:',len(vertices_list))
@@ -184,7 +187,7 @@ print('Processando modelo casa.obj. Vertice final:',len(vertices_list))
 load_texture_from_file(2,tex_path('casa.jpg'))
 
 
-modelo = load_model_from_file(obj_path('monstro.obj'))
+modelo = load_model_from_file(mod_path('monstro.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo monstro.obj. Vertice inicial:',len(vertices_list))
@@ -340,7 +343,7 @@ def desenha_monstro(rotacao_inc):
 #########################################
 #########################################
 
-
+# Ativa os comandos de taclado e mouse
 cmd.commands(window,altura,largura)
 
 
