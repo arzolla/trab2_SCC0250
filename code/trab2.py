@@ -23,7 +23,7 @@ sys.path.append(os.path.join(sys.path[0],'sources'))
 import shader_buffer as sb
 # Importa módulo com os codigos referentes aos comandos de teclado
 import commands as cmd
-#import objects as obj
+import objects as obj
 
 
 # inicializa o GLFW
@@ -50,80 +50,6 @@ program = sb.run_shader()
 
 
 
-def load_model_from_file(filename):
-    """Loads a Wavefront OBJ file. """
-    objects = {}
-    vertices = []
-    texture_coords = []
-    faces = []
-
-    material = None
-
-    # abre o arquivo obj para leitura
-    for line in open(filename, "r"): ## para cada linha do arquivo .obj
-        if line.startswith('#'): continue ## ignora comentarios
-        values = line.split() # quebra a linha por espaço
-        if not values: continue
-
-
-        ### recuperando vertices
-        if values[0] == 'v':
-            vertices.append(values[1:4])
-
-
-        ### recuperando coordenadas de textura
-        elif values[0] == 'vt':
-            texture_coords.append(values[1:3])
-
-        ### recuperando faces 
-        elif values[0] in ('usemtl', 'usemat'):
-            material = values[1]
-        elif values[0] == 'f':
-            face = []
-            face_texture = []
-            for v in values[1:]:
-                w = v.split('/')
-                face.append(int(w[0]))
-                if len(w) >= 2 and len(w[1]) > 0:
-                    face_texture.append(int(w[1]))
-                else:
-                    face_texture.append(0)
-
-            faces.append((face, face_texture, material))
-
-    model = {}
-    model['vertices'] = vertices
-    model['texture'] = texture_coords
-    model['faces'] = faces
-
-    return model
-
-
-
-
-
-def load_texture_from_file(texture_id, img_textura):
-    glBindTexture(GL_TEXTURE_2D, texture_id)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-    img = Image.open(img_textura)
-    img_width = img.size[0]
-    img_height = img.size[1]
-    image_data = img.tobytes("raw", "RGB", 0, -1)
-    #image_data = np.array(list(img.getdata()), np.uint8)
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data)
-
-
-def mod_path(obj):
-    path = os.path.join(sys.path[0],'models',obj)
-    return path
-
-def tex_path(tex):
-    path = os.path.join(sys.path[0],'textures',tex)
-    return path
-
 
 
 glEnable(GL_TEXTURE_2D)
@@ -144,109 +70,19 @@ vertex_index = {
 
 ##############################################
 
-def declare_obj(vertices_list, model, texture, vertex_index, texture_index):
-    modelo = load_model_from_file(mod_path(model))
 
-    ### inserindo vertices do modelo no vetor de vertices
-    print('Processando modelo ',model,'. Vertice inicial:',len(vertices_list))
-    vertex_index[model] = [len(vertices_list), 0]
-    for face in modelo['faces']:
-        for vertice_id in face[0]:
-            vertices_list.append( modelo['vertices'][vertice_id-1] )
-        for texture_id in face[1]:
-            textures_coord_list.append( modelo['texture'][texture_id-1] )
-    print('Processando modelo cube.obj. Vertice final:',len(vertices_list))
-    vertex_index[model][1] = len(vertices_list)
-    ### inserindo coordenadas de textura do modelo no vetor de texturas
-
-    ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-    texture_index[texture] = len(texture_index)
-    load_texture_from_file(texture_index[texture],tex_path(texture))
-
-    return vertex_index, texture_index
 
 ##############################################
 
-vertex_index, texture_index = declare_obj(vertices_list,'caixa.obj','caixa2.jpg',vertex_index, texture_index)
+vertex_index, texture_index = obj.declare_obj(obj.vertices_list,'caixa.obj','caixa2.jpg',vertex_index, texture_index)
 
-""" modelo = load_model_from_file(mod_path('caixa.obj'))
+vertex_index, texture_index = obj.declare_obj(obj.vertices_list,'terreno2.obj','pedra.jpg',vertex_index, texture_index)
 
-### inserindo vertices do modelo no vetor de vertices
-print('Processando modelo cube.obj. Vertice inicial:',len(vertices_list))
-for face in modelo['faces']:
-    for vertice_id in face[0]:
-        vertices_list.append( modelo['vertices'][vertice_id-1] )
-    for texture_id in face[1]:
-        textures_coord_list.append( modelo['texture'][texture_id-1] )
-print('Processando modelo cube.obj. Vertice final:',len(vertices_list))
+vertex_index, texture_index = obj.declare_obj(obj.vertices_list,'casa.obj','casa.jpg',vertex_index, texture_index)
 
-### inserindo coordenadas de textura do modelo no vetor de texturas
+vertex_index, texture_index = obj.declare_obj(obj.vertices_list,'monstro.obj','monstro.jpg',vertex_index, texture_index)
 
 
-### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(0,tex_path('caixa2.jpg')) """
-
-
-vertex_index, texture_index = declare_obj(vertices_list,'terreno2.obj','pedra.jpg',vertex_index, texture_index)
-
-
-
-""" modelo = load_model_from_file(mod_path('terreno2.obj'))
-
-### inserindo vertices do modelo no vetor de vertices
-print('Processando modelo terreno.obj. Vertice inicial:',len(vertices_list))
-for face in modelo['faces']:
-    for vertice_id in face[0]:
-        vertices_list.append( modelo['vertices'][vertice_id-1] )
-    for texture_id in face[1]:
-        textures_coord_list.append( modelo['texture'][texture_id-1] )
-print('Processando modelo terreno.obj. Vertice final:',len(vertices_list))
-
-### inserindo coordenadas de textura do modelo no vetor de texturas
-
-
-### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(1,tex_path('pedra.jpg')) """
-
-
-vertex_index, texture_index = declare_obj(vertices_list,'casa.obj','casa.jpg',vertex_index, texture_index)
-
-""" modelo = load_model_from_file(mod_path('casa.obj'))
-
-### inserindo vertices do modelo no vetor de vertices
-print('Processando modelo casa.obj. Vertice inicial:',len(vertices_list))
-for face in modelo['faces']:
-    for vertice_id in face[0]:
-        vertices_list.append( modelo['vertices'][vertice_id-1] )
-    for texture_id in face[1]:
-        textures_coord_list.append( modelo['texture'][texture_id-1] )
-print('Processando modelo casa.obj. Vertice final:',len(vertices_list))
-
-### inserindo coordenadas de textura do modelo no vetor de texturas
-
-
-### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(2,tex_path('casa.jpg')) """
-
-
-vertex_index, texture_index = declare_obj(vertices_list,'monstro.obj','monstro.jpg',vertex_index, texture_index)
-
-modelo = load_model_from_file(mod_path('monstro.obj'))
-
-""" ### inserindo vertices do modelo no vetor de vertices
-print('Processando modelo monstro.obj. Vertice inicial:',len(vertices_list))
-for face in modelo['faces']:
-    for vertice_id in face[0]:
-        vertices_list.append( modelo['vertices'][vertice_id-1] )
-    for texture_id in face[1]:
-        textures_coord_list.append( modelo['texture'][texture_id-1] )
-print('Processando modelo monstro.obj. Vertice final:',len(vertices_list))
-
-### inserindo coordenadas de textura do modelo no vetor de texturas
-
-
-### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(3,tex_path('monstro.jpg')) """
 
 
 
@@ -257,15 +93,15 @@ load_texture_from_file(3,tex_path('monstro.jpg')) """
 
 
 # Roda buffer de vertice
-vertices = np.zeros(len(vertices_list), [("position", np.float32, 3)])
-vertices['position'] = vertices_list
+vertices = np.zeros(len(obj.vertices_list), [("position", np.float32, 3)])
+vertices['position'] = obj.vertices_list
 
 loc_vertices = sb.vertex_buffer(program, vertices)
 
 
 # Roda buffer de textura
-textures = np.zeros(len(textures_coord_list), [("position", np.float32, 2)]) # duas coordenadas
-textures['position'] = textures_coord_list
+textures = np.zeros(len(obj.textures_coord_list), [("position", np.float32, 2)]) # duas coordenadas
+textures['position'] = obj.textures_coord_list
 
 loc_texture_coord = sb.texture_buffer(program,textures)
 
@@ -275,7 +111,7 @@ loc_texture_coord = sb.texture_buffer(program,textures)
 
 
 
-def desenha_caixa():
+def desenha_caixa(vertex_index, texture_index):
     
     
     # aplica a matriz model
@@ -295,14 +131,14 @@ def desenha_caixa():
     glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
        
     #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, 0)
+    glBindTexture(GL_TEXTURE_2D, texture_index['caixa2.jpg'])
     
     
     # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, 0, 36) ## renderizando
+    glDrawArrays(GL_TRIANGLES, vertex_index['caixa.obj'][0], vertex_index['caixa.obj'][1]) ## renderizando
     
 
-def desenha_terreno():
+def desenha_terreno(vertex_index, texture_index):
     
     
     # aplica a matriz model
@@ -322,15 +158,15 @@ def desenha_terreno():
     glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
        
     #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, 1)
+    glBindTexture(GL_TEXTURE_2D, texture_index['pedra.jpg'])
     
     
     # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, 36, 42-36) ## renderizando
+    glDrawArrays(GL_TRIANGLES, vertex_index['terreno2.obj'][0], vertex_index['caixa.obj'][1]) ## renderizando
+    
 
 
-
-def desenha_casa():
+def desenha_casa(vertex_index, texture_index):
     
     
     # aplica a matriz model
@@ -350,14 +186,15 @@ def desenha_casa():
     glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
        
     #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, 2)
+    glBindTexture(GL_TEXTURE_2D, texture_index['casa.jpg'])
     
     
     # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, 42, 1476-42) ## renderizando
+    glDrawArrays(GL_TRIANGLES, vertex_index['casa.obj'][0], vertex_index['caixa.obj'][1]) ## renderizando
+    
 
 
-def desenha_monstro(rotacao_inc):
+def desenha_monstro(vertex_index, texture_index, rotacao_inc):
     
     
     # aplica a matriz model
@@ -376,12 +213,13 @@ def desenha_monstro(rotacao_inc):
     loc_model = glGetUniformLocation(program, "model")
     glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
        
-    #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, 3)
+ #define id da textura do modelo
+    glBindTexture(GL_TEXTURE_2D, texture_index['monstro.jpg'])
     
     
     # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, 1476, 7584-1476) ## renderizando
+    glDrawArrays(GL_TRIANGLES, vertex_index['monstro.obj'][0], vertex_index['caixa.obj'][1]) ## renderizando
+    
 
 
 #########################################
@@ -458,12 +296,12 @@ while not glfw.window_should_close(window):
     
     
 
-    desenha_caixa()   
-    desenha_terreno()
-    desenha_casa()
+    desenha_caixa(vertex_index, texture_index)   
+    desenha_terreno(vertex_index, texture_index)
+    desenha_casa(vertex_index, texture_index)
     
     rotacao_inc += 0.1
-    desenha_monstro(rotacao_inc)
+    desenha_monstro(vertex_index, texture_index, rotacao_inc)
   
 
     
