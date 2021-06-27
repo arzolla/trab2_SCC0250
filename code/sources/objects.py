@@ -142,10 +142,10 @@ def model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z):
 
 
 program = []
-#vertex_index_main = []
-#texture_index_main = []
+vertex_index_main = []
+texture_index_main = []
 
-def desenha_caixa(vertex_index, texture_index):
+def desenha_caixa():
     
     
     # aplica a matriz model
@@ -165,14 +165,14 @@ def desenha_caixa(vertex_index, texture_index):
     glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
        
     #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, texture_index['caixa2.jpg'])
+    glBindTexture(GL_TEXTURE_2D, texture_index_main['caixa2.jpg'])
     
     
     # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, *vertex_index['caixa.obj']) ## renderizando
+    glDrawArrays(GL_TRIANGLES, *vertex_index_main['caixa.obj']) ## renderizando
     
 
-def desenha_terreno(vertex_index, texture_index):
+def desenha_terreno():
     
     
     # aplica a matriz model
@@ -192,15 +192,15 @@ def desenha_terreno(vertex_index, texture_index):
     glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
        
     #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, texture_index['pedra.jpg'])
+    glBindTexture(GL_TEXTURE_2D, texture_index_main['pedra.jpg'])
     
     
     # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, *vertex_index['terreno2.obj']) ## renderizando
+    glDrawArrays(GL_TRIANGLES, *vertex_index_main['terreno2.obj']) ## renderizando
     
 
 
-def desenha_casa(vertex_index, texture_index):
+def desenha_casa():
     
     
     # aplica a matriz model
@@ -220,14 +220,14 @@ def desenha_casa(vertex_index, texture_index):
     glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
        
     #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, texture_index['casa.jpg'])
+    glBindTexture(GL_TEXTURE_2D, texture_index_main['casa.jpg'])
     
     
     # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, *vertex_index['casa.obj'])
+    glDrawArrays(GL_TRIANGLES, *vertex_index_main['casa.obj'])
 
 
-def desenha_monstro(vertex_index, texture_index, rotacao_inc):
+def desenha_monstro(rotacao_inc):
     
     
     # aplica a matriz model
@@ -247,9 +247,9 @@ def desenha_monstro(vertex_index, texture_index, rotacao_inc):
     glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
        
     #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, texture_index['monstro.jpg'])
+    glBindTexture(GL_TEXTURE_2D, texture_index_main['monstro.jpg'])
     
     
     # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, *vertex_index['monstro.obj'])
+    glDrawArrays(GL_TRIANGLES, *vertex_index_main['monstro.obj'])
 

@@ -104,8 +104,9 @@ cmd.commands(window,altura,largura)
 
 obj.program = program
 
-#obj.vertex_index_main = vertex_index
-#obj.texture_index_main = texture_index    
+obj.vertex_index_main = vertex_index
+obj.texture_index_main = texture_index    
+
 
 #########################################
 #########################################
@@ -142,12 +143,12 @@ while not glfw.window_should_close(window):
     
     
 
-    obj.desenha_caixa(vertex_index, texture_index)   
-    obj.desenha_terreno(vertex_index, texture_index)
-    obj.desenha_casa(vertex_index, texture_index)
+    obj.desenha_caixa()   
+    obj.desenha_terreno()
+    obj.desenha_casa()
     
     rotacao_inc += 0.1
-    obj.desenha_monstro(vertex_index, texture_index, rotacao_inc)
+    obj.desenha_monstro(rotacao_inc)
   
 
     
