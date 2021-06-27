@@ -41,13 +41,13 @@ window = glfw.create_window(largura, altura, "Trabalho 2 - Cenário 3D", None, N
 glfw.make_context_current(window)
 
 
-
 # Função para rodar shaders, retorna variavel programa principal
 program = sb.run_shader()
 
 
 #########################################
 #########################################
+
 
 
 def load_model_from_file(filename):
@@ -99,9 +99,8 @@ def load_model_from_file(filename):
     return model
 
 
-glEnable(GL_TEXTURE_2D)
-qtd_texturas = 10
-textures = glGenTextures(qtd_texturas)
+
+
 
 def load_texture_from_file(texture_id, img_textura):
     glBindTexture(GL_TEXTURE_2D, texture_id)
@@ -117,9 +116,6 @@ def load_texture_from_file(texture_id, img_textura):
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data)
 
 
-vertices_list = []    
-textures_coord_list = []
-
 def mod_path(obj):
     path = os.path.join(sys.path[0],'models',obj)
     return path
@@ -129,10 +125,51 @@ def tex_path(tex):
     return path
 
 
-#def declare_obj
+
+glEnable(GL_TEXTURE_2D)
+qtd_texturas = 10
+textures = glGenTextures(qtd_texturas)
 
 
-modelo = load_model_from_file(mod_path('caixa.obj'))
+vertices_list = []    
+textures_coord_list = []
+
+texture_index = {
+    # 'textura' : id_textura
+}
+
+vertex_index = {
+    # 'modelo' : [inicial, final]
+}
+
+##############################################
+
+def declare_obj(vertices_list, model, texture, vertex_index, texture_index):
+    modelo = load_model_from_file(mod_path(model))
+
+    ### inserindo vertices do modelo no vetor de vertices
+    print('Processando modelo ',model,'. Vertice inicial:',len(vertices_list))
+    vertex_index[model] = [len(vertices_list), 0]
+    for face in modelo['faces']:
+        for vertice_id in face[0]:
+            vertices_list.append( modelo['vertices'][vertice_id-1] )
+        for texture_id in face[1]:
+            textures_coord_list.append( modelo['texture'][texture_id-1] )
+    print('Processando modelo cube.obj. Vertice final:',len(vertices_list))
+    vertex_index[model][1] = len(vertices_list)
+    ### inserindo coordenadas de textura do modelo no vetor de texturas
+
+    ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
+    texture_index[texture] = len(texture_index)
+    load_texture_from_file(texture_index[texture],tex_path(texture))
+
+    return vertex_index, texture_index
+
+##############################################
+
+vertex_index, texture_index = declare_obj(vertices_list,'caixa.obj','caixa2.jpg',vertex_index, texture_index)
+
+""" modelo = load_model_from_file(mod_path('caixa.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo cube.obj. Vertice inicial:',len(vertices_list))
@@ -147,10 +184,14 @@ print('Processando modelo cube.obj. Vertice final:',len(vertices_list))
 
 
 ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(0,tex_path('caixa2.jpg'))
+load_texture_from_file(0,tex_path('caixa2.jpg')) """
 
 
-modelo = load_model_from_file(mod_path('terreno2.obj'))
+vertex_index, texture_index = declare_obj(vertices_list,'terreno2.obj','pedra.jpg',vertex_index, texture_index)
+
+
+
+""" modelo = load_model_from_file(mod_path('terreno2.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo terreno.obj. Vertice inicial:',len(vertices_list))
@@ -165,9 +206,12 @@ print('Processando modelo terreno.obj. Vertice final:',len(vertices_list))
 
 
 ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(1,tex_path('pedra.jpg'))
+load_texture_from_file(1,tex_path('pedra.jpg')) """
 
-modelo = load_model_from_file(mod_path('casa.obj'))
+
+vertex_index, texture_index = declare_obj(vertices_list,'casa.obj','casa.jpg',vertex_index, texture_index)
+
+""" modelo = load_model_from_file(mod_path('casa.obj'))
 
 ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo casa.obj. Vertice inicial:',len(vertices_list))
@@ -182,12 +226,14 @@ print('Processando modelo casa.obj. Vertice final:',len(vertices_list))
 
 
 ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(2,tex_path('casa.jpg'))
+load_texture_from_file(2,tex_path('casa.jpg')) """
 
+
+vertex_index, texture_index = declare_obj(vertices_list,'monstro.obj','monstro.jpg',vertex_index, texture_index)
 
 modelo = load_model_from_file(mod_path('monstro.obj'))
 
-### inserindo vertices do modelo no vetor de vertices
+""" ### inserindo vertices do modelo no vetor de vertices
 print('Processando modelo monstro.obj. Vertice inicial:',len(vertices_list))
 for face in modelo['faces']:
     for vertice_id in face[0]:
@@ -200,7 +246,7 @@ print('Processando modelo monstro.obj. Vertice final:',len(vertices_list))
 
 
 ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
-load_texture_from_file(3,tex_path('monstro.jpg'))
+load_texture_from_file(3,tex_path('monstro.jpg')) """
 
 
 
