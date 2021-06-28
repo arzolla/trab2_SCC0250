@@ -136,7 +136,7 @@ while not glfw.window_should_close(window):
     
     #obj.desenha_caixa()   
     obj.desenha_terreno()
-    obj.desenha_casa()
+    obj.draw_obj('casa.obj')
     
     rotacao_inc += 0.1
     obj.desenha_monstro(rotacao_inc)
