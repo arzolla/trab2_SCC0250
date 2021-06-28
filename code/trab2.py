@@ -60,7 +60,7 @@ textures = glGenTextures(qtd_texturas)
 
 #obj.declare_obj('sky.obj','sky.jpg')
 
-obj.declare_obj('sphere.obj','milkyway.jpg')
+obj.declare_obj('skydome.obj','milkyway.jpg')
 
 #obj.declare_obj('forest2.obj','forest.jpg')
 
