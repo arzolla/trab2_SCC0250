@@ -55,44 +55,43 @@ textures = glGenTextures(qtd_texturas)
 
 
 
-# Dicionários para armazenar o indice de textura 
-texture_index = {
-    # 'textura' : id_textura
-}
 
-# Dicionários para armazenar inicio e fim dos vértices 
-vertex_index = {
-    # 'modelo' : [inicial, final]
-}
 
 
 ##############################################
 ##############################################
 
-vertex_index, texture_index = obj.declare_obj('caixa.obj','caixa2.jpg',vertex_index, texture_index)
 
-vertex_index, texture_index = obj.declare_obj('terreno2.obj','pedra.jpg',vertex_index, texture_index)
+obj.declare_obj('caixa.obj','caixa2.jpg')
 
-vertex_index, texture_index = obj.declare_obj('casa.obj','casa.jpg',vertex_index, texture_index)
+obj.declare_obj('terreno2.obj','pedra.jpg')
 
-vertex_index, texture_index = obj.declare_obj('monstro.obj','monstro.jpg',vertex_index, texture_index)
+obj.declare_obj('casa.obj','casa.jpg')
+
+obj.declare_obj('monstro.obj','monstro.jpg')
+
 
 
 #########################################
 #########################################
 
-# Roda buffer de vertice
+# Declara buffers da GPU e envia para shader_buffer.py
+sb.buffer = glGenBuffers(2)
+
+# Declara buffer de vertice
 vertices = np.zeros(len(obj.vertices_list), [("position", np.float32, 3)])
 vertices['position'] = obj.vertices_list
 
-loc_vertices = sb.vertex_buffer(program, vertices)
+# Envia vértices para buffer
+sb.vertex_buffer(vertices)
 
 
-# Roda buffer de textura
+# Declara buffer de textura
 textures = np.zeros(len(obj.textures_coord_list), [("position", np.float32, 2)]) # duas coordenadas
 textures['position'] = obj.textures_coord_list
 
-loc_texture_coord = sb.texture_buffer(program,textures)
+# Envia texturas para buffer
+sb.texture_buffer(textures)
 
 
 #########################################
@@ -101,11 +100,11 @@ loc_texture_coord = sb.texture_buffer(program,textures)
 # Ativa os comandos de taclado e mouse
 cmd.commands(window,altura,largura)
 
-
+# Envia variável de programa para módulo objects.py
 obj.program = program
 
-obj.vertex_index_main = vertex_index
-obj.texture_index_main = texture_index    
+#obj.vertex_index_main = vertex_index
+#obj.texture_index_main = texture_index    
 
 
 #########################################

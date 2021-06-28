@@ -21,9 +21,11 @@ def commands(window,altura,largura):
     lastX =  largura/2
     lastY =  altura/2
 
+    # Define eventos do teclado
     def key_event(window,key,scancode,action,mods):
+        
         global cameraPos, cameraFront, cameraUp, polygonal_mode
-        global altura, largura
+
         cameraSpeed = 0.2
         if key == 87 and (action==1 or action==2): # tecla W
             cameraPos += cameraSpeed * cameraFront
@@ -45,10 +47,12 @@ def commands(window,altura,largura):
             
                      
 
-
+    # Define eventos do mouse
     def mouse_event(window, xpos, ypos):
+        
         global firstMouse, cameraFront, yaw, pitch, lastX, lastY
         global altura, largura
+
         if firstMouse:
             lastX = xpos
             lastY = ypos

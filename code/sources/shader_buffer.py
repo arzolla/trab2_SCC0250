@@ -34,8 +34,13 @@ fragment_code = """
         }
         """
 
+
+program = []
+
 # Função para declarar programa principal e configurar shaders
 def run_shader():
+
+    global program
 
     # Requisitando slot para a GPU para os programas Vertex e Fragment Shaders
     program  = glCreateProgram()
@@ -81,11 +86,12 @@ def run_shader():
 ######### BUFFERS #########
 ###########################
 
+buffer = []
 
 # Função para configurar os buffers de textura
-def vertex_buffer(program, vertices):
+def vertex_buffer(vertices):
 
-    buffer = glGenBuffers(2)
+    #buffer = glGenBuffers(2)
 
     # Upload data
     glBindBuffer(GL_ARRAY_BUFFER, buffer[0])
@@ -101,12 +107,11 @@ def vertex_buffer(program, vertices):
 
     glVertexAttribPointer(loc_vertices, 3, GL_FLOAT, False, stride, offset)
 
-    return loc_vertices
 
 
-def texture_buffer(program, textures):
+def texture_buffer(textures):
 
-    buffer = glGenBuffers(2)
+    #buffer = glGenBuffers(2)
 
     # Upload data
     glBindBuffer(GL_ARRAY_BUFFER, buffer[1])
@@ -122,6 +127,6 @@ def texture_buffer(program, textures):
 
     glVertexAttribPointer(loc_texture_coord, 2, GL_FLOAT, False, stride, offset)
 
-    return loc_texture_coord
+
 
 
