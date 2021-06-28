@@ -121,7 +121,7 @@ texture_index = {
 }
 # Dicionário para armazenar inicio e fim dos vértices 
 vertex_index = {
-    # 'modelo' : [inicial, final]
+    # 'modelo' : [vertice_inicial, numero_vertices]
 }
 
 # Função para declarar os objetos
@@ -132,14 +132,14 @@ def declare_obj(model, texture):
 
     ### inserindo vertices do modelo no vetor de vertices
     print('Processando modelo ',model,'. Vertice inicial:',len(vertices_list))
-    vertex_index[model] = [len(vertices_list), 0]
+    vertex_index[model] = [len(vertices_list), -len(vertices_list)]
     for face in modelo['faces']:
         for vertice_id in face[0]:
             vertices_list.append( modelo['vertices'][vertice_id-1] )
         for texture_id in face[1]:
             textures_coord_list.append( modelo['texture'][texture_id-1] )
     print('Processando modelo ',model,'. Vertice final:',len(vertices_list))
-    vertex_index[model][1] = len(vertices_list)
+    vertex_index[model][1] += len(vertices_list)
 
     ### inserindo coordenadas de textura do modelo no vetor de texturas
 
