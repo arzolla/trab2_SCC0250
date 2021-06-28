@@ -32,11 +32,11 @@ if  glfw.init():
 else:
     print("Erro na inicialização do GLFW")
 
-# criando a janela
+# Declarando a janela
 glfw.init()
 glfw.window_hint(glfw.VISIBLE, glfw.FALSE);
-altura = 720
-largura = 720
+altura = 1000
+largura = 1000
 window = glfw.create_window(largura, altura, "Trabalho 2 - Cenário 3D", None, None)
 glfw.make_context_current(window)
 
@@ -48,21 +48,18 @@ program = sb.run_shader()
 #########################################
 #########################################
 
-
+# Configura suporte a texturas
 glEnable(GL_TEXTURE_2D)
 qtd_texturas = 10
 textures = glGenTextures(qtd_texturas)
 
 
 
-
-
-
 ##############################################
 ##############################################
 
-
-obj.declare_obj('caixa.obj','caixa2.jpg')
+# Declaração dos objetos a partir de modelo e textura
+#obj.declare_obj('caixa.obj','caixa2.jpg')
 
 obj.declare_obj('terreno2.obj','pedra.jpg')
 
@@ -70,19 +67,20 @@ obj.declare_obj('casa.obj','casa.jpg')
 
 obj.declare_obj('monstro.obj','monstro.jpg')
 
-
+# Envia variável de programa para módulo objects.py
+obj.program = program
 
 #########################################
 #########################################
 
-# Declara buffers da GPU e envia para shader_buffer.py
+# Declara buffers da GPU e envia para módulo shader_buffer.py
 sb.buffer = glGenBuffers(2)
 
 # Declara buffer de vertice
 vertices = np.zeros(len(obj.vertices_list), [("position", np.float32, 3)])
 vertices['position'] = obj.vertices_list
 
-# Envia vértices para buffer
+# Envia vértices para buffer da GPU
 sb.vertex_buffer(vertices)
 
 
@@ -90,21 +88,22 @@ sb.vertex_buffer(vertices)
 textures = np.zeros(len(obj.textures_coord_list), [("position", np.float32, 2)]) # duas coordenadas
 textures['position'] = obj.textures_coord_list
 
-# Envia texturas para buffer
+# Envia texturas para buffer da GPU
 sb.texture_buffer(textures)
 
-
 #########################################
 #########################################
 
-# Ativa os comandos de taclado e mouse
-cmd.commands(window,altura,largura)
+# Envia variáveis para modulo commands.py
+cmd.lastX =  largura/2
+cmd.lastY =  altura/2
+cmd.window = window
+# Ativa os comandos de teclado e mouse
+cmd.commands()
 
-# Envia variável de programa para módulo objects.py
-obj.program = program
 
-#obj.vertex_index_main = vertex_index
-#obj.texture_index_main = texture_index    
+
+  
 
 
 #########################################
@@ -142,12 +141,13 @@ while not glfw.window_should_close(window):
     
     
 
-    obj.desenha_caixa()   
+    #obj.desenha_caixa()   
     obj.desenha_terreno()
     obj.desenha_casa()
     
     rotacao_inc += 0.1
     obj.desenha_monstro(rotacao_inc)
+    obj.desenha_monstro(-rotacao_inc)
   
 
     

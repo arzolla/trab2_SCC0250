@@ -13,13 +13,13 @@ polygonal_mode = False
 firstMouse = True
 yaw = -90.0 
 pitch = 0.0
-lastX =  0
-lastY =  0
 
-def commands(window,altura,largura):
-    global lastX, lastY
-    lastX =  largura/2
-    lastY =  altura/2
+# Instancia variaveis
+lastX =  []
+lastY =  []
+
+def commands():
+
 
     # Define eventos do teclado
     def key_event(window,key,scancode,action,mods):

@@ -86,12 +86,11 @@ def run_shader():
 ######### BUFFERS #########
 ###########################
 
+# Variável instanciada para armazenar buffers da GPU
 buffer = []
 
 # Função para configurar os buffers de textura
 def vertex_buffer(vertices):
-
-    #buffer = glGenBuffers(2)
 
     # Upload data
     glBindBuffer(GL_ARRAY_BUFFER, buffer[0])
@@ -110,8 +109,6 @@ def vertex_buffer(vertices):
 
 
 def texture_buffer(textures):
-
-    #buffer = glGenBuffers(2)
 
     # Upload data
     glBindBuffer(GL_ARRAY_BUFFER, buffer[1])
