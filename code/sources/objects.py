@@ -6,7 +6,8 @@ from PIL import Image
 import sys, os
 
 
-
+##############################################
+############# FUNÇÕES AUXILIARES #############
 
 
 # Função para carregar modelo a partir de arquivo .obj
@@ -73,17 +74,14 @@ def load_texture_from_file(texture_id, img_textura):
 
 # Acesso aos paths de modelos e texturas
 def mod_path(obj):
-    path = os.path.join(sys.path[0],'models',obj)
+    path = os.path.join(sys.path[0],'sources','models',obj)
     return path
 
 def tex_path(tex):
-    path = os.path.join(sys.path[0],'textures',tex)
+    path = os.path.join(sys.path[0],'sources','textures',tex)
     return path
 
-
-
-
-
+# Matriz model
 def model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z):
     
     angle = math.radians(angle)
@@ -104,18 +102,32 @@ def model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z):
     
     return matrix_transform
 
+# Matriz view
+def view(cameraPos, cameraFront, cameraUp):
+
+    mat_view = glm.lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+    mat_view = np.array(mat_view)
+    return mat_view
+
+# Matriz projection
+def projection(altura,largura):
+
+    # perspective parameters: fovy, aspect, near, far
+    mat_projection = glm.perspective(glm.radians(45.0), largura/altura, 0.1, 1000.0)
+    mat_projection = np.array(mat_projection)    
+    return mat_projection
 
 
-#########################################
-################ OBJETOS ################
-#########################################
+##############################################
+################### OBJETOS ##################
+##############################################
 
 
 # Lista de vertices e coordenadas da textura
 vertices_list = []    
 textures_coord_list = []
 
-# Dicionário para armazenar o indice de textura 
+# Dicionário para armazenar o indice da textura 
 texture_index = {
     # 'textura' : id_textura
 }
@@ -143,7 +155,7 @@ def declare_obj(model, texture):
 
     ### inserindo coordenadas de textura do modelo no vetor de texturas
 
-    ### carregando textura equivalente e definindo um id (buffer): use um id por textura!
+    ### carregando textura equivalente e definindo um id (buffer)
     print('indice da textura do',texture ,':',len(texture_index))
     texture_index[texture] = len(texture_index)
     load_texture_from_file(texture_index[texture],tex_path(texture))

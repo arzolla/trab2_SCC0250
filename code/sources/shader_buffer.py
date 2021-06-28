@@ -89,7 +89,7 @@ def run_shader():
 # Variável instanciada para armazenar buffers da GPU
 buffer = []
 
-# Função para configurar os buffers de textura
+# Função para configurar os buffers de vértice
 def vertex_buffer(vertices):
 
     # Upload data
@@ -107,7 +107,7 @@ def vertex_buffer(vertices):
     glVertexAttribPointer(loc_vertices, 3, GL_FLOAT, False, stride, offset)
 
 
-
+# Função para configurar os buffers de textura
 def texture_buffer(textures):
 
     # Upload data

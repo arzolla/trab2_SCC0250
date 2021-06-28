@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python37
 #########################################
 ##### SCC0250 - Computação Gráfica ######
 ####### Trabalho 2 - Cenário 3D #########
@@ -73,25 +73,27 @@ obj.program = program
 # Declara buffers da GPU e envia para módulo shader_buffer.py
 sb.buffer = glGenBuffers(2)
 
-# Declara buffer de vertice
+# Declara variável para armazenar lista de vértices
 vertices = np.zeros(len(obj.vertices_list), [("position", np.float32, 3)])
+# Obtém lista de vértices do módulo objetcs.py
 vertices['position'] = obj.vertices_list
 
-# Envia vértices para buffer da GPU
+# Envia lista de vértices para buffer da GPU
 sb.vertex_buffer(vertices)
 
 
-# Declara buffer de textura
+# Declara variável para armazenar lista de coordenadas de textura
 textures = np.zeros(len(obj.textures_coord_list), [("position", np.float32, 2)]) # duas coordenadas
+# Obtém lista de coordenadas de textura do módulo objetcs.py
 textures['position'] = obj.textures_coord_list
 
-# Envia texturas para buffer da GPU
+# Envia lista de coordenadas de texturas para buffer da GPU
 sb.texture_buffer(textures)
 
 ##############################################
 ################### COMANDOS #################
 
-# Envia variáveis para modulo commands.py
+# Envia variáveis de janela para modulo commands.py
 cmd.lastX =  largura/2
 cmd.lastY =  altura/2
 cmd.window = window
@@ -132,7 +134,6 @@ while not glfw.window_should_close(window):
         glPolygonMode(GL_FRONT_AND_BACK,GL_FILL)
     
     
-
     #obj.desenha_caixa()   
     obj.desenha_terreno()
     obj.desenha_casa()
@@ -143,11 +144,11 @@ while not glfw.window_should_close(window):
   
 
     
-    mat_view = cmd.view(cmd.cameraPos, cmd.cameraFront, cmd.cameraUp)
+    mat_view = obj.view(cmd.cameraPos, cmd.cameraFront, cmd.cameraUp)
     loc_view = glGetUniformLocation(program, "view")
     glUniformMatrix4fv(loc_view, 1, GL_FALSE, mat_view)
 
-    mat_projection = cmd.projection(altura,largura)
+    mat_projection = obj.projection(altura,largura)
     loc_projection = glGetUniformLocation(program, "projection")
     glUniformMatrix4fv(loc_projection, 1, GL_FALSE, mat_projection)    
     
