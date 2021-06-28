@@ -35,8 +35,8 @@ else:
 # Declarando a janela
 glfw.init()
 glfw.window_hint(glfw.VISIBLE, glfw.FALSE);
-altura = 1000
-largura = 1000
+largura = 1280
+altura = 720
 window = glfw.create_window(largura, altura, "Trabalho 2 - Cenário 3D", None, None)
 glfw.make_context_current(window)
 
@@ -63,6 +63,10 @@ obj.declare_obj('terreno2.obj','pedra.jpg')
 obj.declare_obj('casa.obj','casa.jpg')
 
 obj.declare_obj('monstro.obj','monstro.jpg')
+
+obj.declare_obj('carro.obj','pedra.jpg')
+
+obj.declare_obj('spaceship.obj','spaceship.jpg')
 
 # Envia variável de programa para módulo objects.py
 obj.program = program
@@ -137,10 +141,12 @@ while not glfw.window_should_close(window):
     #obj.desenha_caixa()   
     obj.desenha_terreno()
     obj.draw_obj('casa.obj')
-    
+    #obj.draw_obj('carro.obj')
+    obj.draw_obj('spaceship.obj')
+
     rotacao_inc += 0.1
-    obj.desenha_monstro(rotacao_inc)
-    obj.desenha_monstro(-rotacao_inc)
+    #obj.desenha_monstro(rotacao_inc)
+    #obj.desenha_monstro(-rotacao_inc)
   
 
     
