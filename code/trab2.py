@@ -41,22 +41,19 @@ window = glfw.create_window(largura, altura, "Trabalho 2 - Cenário 3D", None, N
 glfw.make_context_current(window)
 
 
+##############################################
+##############################################
+
 # Função para rodar shaders, retorna variavel programa principal
 program = sb.run_shader()
-
-
-#########################################
-#########################################
 
 # Configura suporte a texturas
 glEnable(GL_TEXTURE_2D)
 qtd_texturas = 10
 textures = glGenTextures(qtd_texturas)
 
-
-
 ##############################################
-##############################################
+################### OBJETOS ##################
 
 # Declaração dos objetos a partir de modelo e textura
 #obj.declare_obj('caixa.obj','caixa2.jpg')
@@ -70,8 +67,8 @@ obj.declare_obj('monstro.obj','monstro.jpg')
 # Envia variável de programa para módulo objects.py
 obj.program = program
 
-#########################################
-#########################################
+##############################################
+################### BUFFERS ##################
 
 # Declara buffers da GPU e envia para módulo shader_buffer.py
 sb.buffer = glGenBuffers(2)
@@ -91,8 +88,8 @@ textures['position'] = obj.textures_coord_list
 # Envia texturas para buffer da GPU
 sb.texture_buffer(textures)
 
-#########################################
-#########################################
+##############################################
+################### COMANDOS #################
 
 # Envia variáveis para modulo commands.py
 cmd.lastX =  largura/2
@@ -102,13 +99,8 @@ cmd.window = window
 cmd.commands()
 
 
-
-  
-
-
 #########################################
 #########################################
-
 
 # Mostra a janela
 glfw.show_window(window)
