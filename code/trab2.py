@@ -58,13 +58,19 @@ textures = glGenTextures(qtd_texturas)
 # Declaração dos objetos a partir de modelo e textura
 #obj.declare_obj('caixa.obj','caixa2.jpg')
 
+#obj.declare_obj('sky.obj','sky.jpg')
+
+obj.declare_obj('sphere.obj','milkyway.jpg')
+
+#obj.declare_obj('forest2.obj','forest.jpg')
+
 obj.declare_obj('terreno2.obj','pedra.jpg')
 
 obj.declare_obj('casa.obj','casa.jpg')
 
 obj.declare_obj('monstro.obj','monstro.jpg')
 
-obj.declare_obj('carro.obj','pedra.jpg')
+#obj.declare_obj('carro.obj','pedra.jpg')
 
 obj.declare_obj('spaceship.obj','spaceship.jpg')
 
@@ -140,9 +146,48 @@ while not glfw.window_should_close(window):
     
     #obj.desenha_caixa()   
     obj.desenha_terreno()
-    obj.draw_obj('casa.obj')
+
+
+    # rotacao
+    angle = rotacao_inc/10;
+    r_x = 1.0; r_y = 1.0; r_z = 0.0;
+    # translacao
+    t_x = 0.0; t_y = -1.0; t_z = 0.0;
+    # escala
+    s_x = 500.0; s_y = 500.0; s_z = 500.0;
+
+    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+
+
+    obj.draw_obj('sphere.obj', mat_model)
+
+
+    # rotacao
+    angle = 0.0;
+    r_x = 0.0; r_y = 0.0; r_z = 1.0;
+    # translacao
+    t_x = 0.0 ; t_y = 5.0; t_z = rotacao_inc/10;
+    # escala
+    s_x = 1.0; s_y = 1.0; s_z = 1.0;
+
+    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+
+    #obj.draw_obj('casa.obj', mat_model)
+    
     #obj.draw_obj('carro.obj')
-    obj.draw_obj('spaceship.obj')
+    obj.draw_obj('spaceship.obj', mat_model)
+
+
+     # rotacao
+    angle = 0.0;
+    r_x = 0.0; r_y = 0.0; r_z = 0.0;
+    # translacao
+    t_x = 0.0 ; t_y = 0.0; t_z = 0.0;
+    # escala
+    s_x = 1.0; s_y = 1.0; s_z = 1.0;
+
+    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    #obj.draw_obj('forest2.obj', mat_model)
 
     rotacao_inc += 0.1
     #obj.desenha_monstro(rotacao_inc)
