@@ -39,11 +39,9 @@ def commands():
         if key == 68 and (action==1 or action==2): # tecla D
             cameraPos += glm.normalize(glm.cross(cameraFront, cameraUp)) * cameraSpeed
             
-        if key == 80 and action==1 and polygonal_mode==True:
-            polygonal_mode=False
-        else:
-            if key == 80 and action==1 and polygonal_mode==False:
-                polygonal_mode=True
+        if key == 80 and action==1:
+            polygonal_mode = not(polygonal_mode)
+ 
             
                      
 
@@ -83,15 +81,4 @@ def commands():
     glfw.set_key_callback(window, key_event)
     glfw.set_cursor_pos_callback(window, mouse_event)
 
-def view(cameraPos, cameraFront, cameraUp):
 
-    mat_view = glm.lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-    mat_view = np.array(mat_view)
-    return mat_view
-
-def projection(altura,largura):
-
-    # perspective parameters: fovy, aspect, near, far
-    mat_projection = glm.perspective(glm.radians(45.0), largura/altura, 0.1, 1000.0)
-    mat_projection = np.array(mat_projection)    
-    return mat_projection

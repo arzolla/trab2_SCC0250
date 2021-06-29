@@ -129,38 +129,44 @@ textures_coord_list = []
 
 # Dicionário para armazenar o indice da textura 
 texture_index = {
-    # 'modelo' : id_textura
+    # 'modelo' : [id_textura1, id_textura2, ...]
 }
 # Dicionário para armazenar inicio e fim dos vértices 
 vertex_index = {
-    # 'modelo' : [vertice_inicial, numero_vertices]
+    # 'modelo' : [vertice_inicial, vertice_final1, vertice_final2, ...]]
 }
 ### Para facilidade, as chaves de ambos são o nome do modelo
 
 
 # Função para declarar os objetos
-def declare_obj(model, texture):
+def declare_obj(model, textures):
     
     global vertex_index, texture_index
     modelo = load_model_from_file(mod_path(model))
 
     ### inserindo vertices do modelo no vetor de vertices
-    print('Processando modelo ',model,'. Vertice inicial:',len(vertices_list))
-    vertex_index[model] = [len(vertices_list), -len(vertices_list)]
+    print('Processando modelo',model,'. Vertice inicial:',len(vertices_list))
+    faces_visited = []
+    vertex_index[model] = []
     for face in modelo['faces']:
+        if face[2] not in faces_visited:
+            print('Objeto',face[2],' Vertice inicial:', len(vertices_list))
+            vertex_index[model].append(len(vertices_list))
+            faces_visited.append(face[2])
         for vertice_id in face[0]:
             vertices_list.append( modelo['vertices'][vertice_id-1] )
         for texture_id in face[1]:
             textures_coord_list.append( modelo['texture'][texture_id-1] )
     print('Processando modelo ',model,'. Vertice final:',len(vertices_list))
-    vertex_index[model][1] += len(vertices_list)
+    vertex_index[model].append(len(vertices_list))
 
+    print(vertex_index[model])
     ### inserindo coordenadas de textura do modelo no vetor de texturas
-
+    #for i in range(len(textures))
     ### carregando textura equivalente e definindo um id (buffer)
-    print('indice da textura do',texture ,':',len(texture_index))
+    print('indice da textura',textures ,':',len(texture_index))
     texture_index[model] = len(texture_index)
-    load_texture_from_file(texture_index[model],tex_path(texture))
+    load_texture_from_file(texture_index[model],tex_path(textures))
 
 
 
@@ -191,104 +197,7 @@ def draw_obj(modelo, mat_model):
     
     
     # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, *vertex_index[modelo]) ## renderizando
+    glDrawArrays(GL_TRIANGLES, vertex_index[modelo][0],vertex_index[modelo][1]-vertex_index[modelo][0] ) ## renderizando
 
 
-
-
-def desenha_caixa():
-    
-    
-    
-    loc_model = glGetUniformLocation(program, "model")
-    glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
-       
-    #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, texture_index['caixa.obj'])
-    
-    
-    # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, *vertex_index['caixa.obj']) ## renderizando
-    
-
-def desenha_terreno():
-    
-    
-    # aplica a matriz model
-    
-    # rotacao
-    angle = 0.0;
-    r_x = 0.0; r_y = 0.0; r_z = 1.0;
-    
-    # translacao
-    t_x = 0.0; t_y = -1.01; t_z = 0.0;
-    
-    # escala
-    s_x = 20.0; s_y = 20.0; s_z = 20.0;
-    
-    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-    loc_model = glGetUniformLocation(program, "model")
-    glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
-       
-    #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, texture_index['terreno2.obj'])
-    
-    
-    # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, *vertex_index['terreno2.obj']) ## renderizando
-    
-
-
-def desenha_casa():
-    
-    
-    # aplica a matriz model
-    
-    # rotacao
-    angle = 0.0;
-    r_x = 0.0; r_y = 0.0; r_z = 1.0;
-    
-    # translacao
-    t_x = 0.0; t_y = -1.0; t_z = 0.0;
-    
-    # escala
-    s_x = 1.0; s_y = 1.0; s_z = 1.0;
-    
-    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-    loc_model = glGetUniformLocation(program, "model")
-    glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
-       
-    #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, texture_index['casa.obj'])
-    
-    
-    # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, *vertex_index['casa.obj'])
-
-
-def desenha_monstro(rotacao_inc):
-    
-    
-    # aplica a matriz model
-    
-    # rotacao
-    angle = rotacao_inc;
-    r_x = 0.0; r_y = 1.0; r_z = 0.0;
-    
-    # translacao
-    t_x = 0.0; t_y = -1.0; t_z = 0.0;
-    
-    # escala
-    s_x = 1.0; s_y = 1.0; s_z = 1.0;
-    
-    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-    loc_model = glGetUniformLocation(program, "model")
-    glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
-       
-    #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, texture_index['monstro.obj'])
-    
-    
-    # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, *vertex_index['monstro.obj'])
 
