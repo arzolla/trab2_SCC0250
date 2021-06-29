@@ -59,13 +59,6 @@ textures = glGenTextures(qtd_texturas)
 
 
 
-obj.declare_obj('chao.obj',['grass.jpg'])
-
-forest_tex = ['Kust_1.jpg','Kust_2.png','Paporotnik.png','Vetka_elka.png','tronco.jpg',
-                'Tree_android.png','Vetka_elka.png', 'grass.jpg'
-]
-
-obj.declare_obj('forest.obj',forest_tex)
 
 obj.declare_obj('pine_forest.obj',['pines.png','ground.jpeg'])
 
@@ -121,13 +114,20 @@ cmd.commands()
 glfw.show_window(window)
 glfw.set_cursor_pos(window, cmd.lastX, cmd.lastY)
 
+glEnable(GL_BLEND)
 glEnable(GL_DEPTH_TEST) ### importante para 3D
-   
+
+
+# glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE)
+# glEnable( GL_BLEND )
+# glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA )
+# glEnable(GL_LINE_SMOOTH)
+# glEnable(GL_TEXTURE_2D)
 
 rotacao_inc = 0
-cameraPos   = cmd.cameraPos;
-cameraFront = cmd.cameraFront;
-cameraUp    = cmd.cameraUp;
+cameraPos   = cmd.cameraPos
+cameraFront = cmd.cameraFront
+cameraUp    = cmd.cameraUp
 
 #########################################
 #########################################
@@ -161,7 +161,7 @@ while not glfw.window_should_close(window):
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
 
 
-    obj.draw_obj('skydome.obj', mat_model)
+    #obj.draw_obj('skydome.obj', mat_model)
 
 
     # rotacao
@@ -175,7 +175,7 @@ while not glfw.window_should_close(window):
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
 
 
-    obj.draw_obj('spaceship.obj', mat_model)
+    #obj.draw_obj('spaceship.obj', mat_model)
     
 
 

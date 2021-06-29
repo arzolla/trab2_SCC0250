@@ -69,7 +69,9 @@ def load_texture_from_file(texture_id, img_textura):
     img = Image.open(img_textura)
     img_width = img.size[0]
     img_height = img.size[1]
+    # image_data = img.convert("RGBA").tobytes("raw", "RGBA", 0, -1)
     image_data = img.tobytes("raw", "RGB", 0, -1)
+    # glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data)
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data)
 
 # Acesso aos paths de modelos e texturas
@@ -86,7 +88,6 @@ def model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z):
     
     matrix_transform = glm.mat4(1.0) # instanciando uma matriz identidade
 
-    
     # aplicando translacao
     matrix_transform = glm.translate(matrix_transform, glm.vec3(t_x, t_y, t_z))    
     
