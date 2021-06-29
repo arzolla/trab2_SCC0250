@@ -58,7 +58,7 @@ textures = glGenTextures(qtd_texturas)
 # Declaração dos objetos a partir de modelo e texturas 
 
 
-
+obj.declare_obj('hut.obj',['body.jpg','frame.jpg','roof_floor.jpg'])
 
 obj.declare_obj('pine_forest.obj',['pines.png','ground.jpeg'])
 
@@ -188,9 +188,21 @@ while not glfw.window_should_close(window):
     s_x = 1.0; s_y = 1.0; s_z = 1.0;
     
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-    obj.draw_obj('tree.obj', mat_model)
     
+    obj.draw_obj('tree.obj', mat_model)
     obj.draw_obj('pine_forest.obj', mat_model)
+
+    
+    angle = 0.0;
+    r_x = 0.0; r_y = 0.0; r_z = 1.0;
+    # translacao
+    t_x = 5.5 ; t_y = -2 ; t_z = 2.2;
+    # escala
+    s_x = 1.0; s_y = 1.0; s_z = 1.0;
+    
+    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    
+    obj.draw_obj('hut.obj', mat_model)
     #obj.draw_obj('forest.obj', mat_model)
     #obj.draw_obj('chao.obj', mat_model)
     rotacao_inc += 0.1

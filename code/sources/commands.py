@@ -3,20 +3,26 @@ import glfw
 import math
 import numpy as np
 
+
+# Variaveis de câmera
 cameraPos   = glm.vec3(0.0,  0.0,  1.0);
 cameraFront = glm.vec3(0.0,  0.0, -1.0);
 cameraUp    = glm.vec3(0.0,  1.0,  0.0);
 
-
+# Modo poligonal
 polygonal_mode = False
 
+# Variáveis de mouse
 firstMouse = True
 yaw = -90.0 
 pitch = 0.0
-
-# Instancia variaveis
 lastX =  []
 lastY =  []
+
+# Inputs
+tx = 0
+ty = 0
+tz = 0
 
 def commands():
 
@@ -41,8 +47,22 @@ def commands():
             
         if key == 80 and action==1:
             polygonal_mode = not(polygonal_mode)
- 
+
+        global tx, ty
+
+        if key == 265 and (action==1 or action==2): # tecla cima
+            tx = tx+0.1
+        
+        if key == 264 and (action==1 or action==2): # tecla baixo
+            tx = tx-0.1
+        
+        if key == 263 and (action==1 or action==2): # tecla esquerda
+            ty = ty -0.1
             
+        if key == 262 and (action==1 or action==2): # tecla direita
+            ty = ty +0.1
+        print('tx ty:',tx,ty)    
+        print(key,scancode,action,mods)            
                      
 
     # Define eventos do mouse
