@@ -51,10 +51,10 @@ def commands():
         global tx, ty
 
         if key == 265 and (action==1 or action==2): # tecla cima
-            tx = tx+0.1
+            tx = tx-0.1
         
         if key == 264 and (action==1 or action==2): # tecla baixo
-            tx = tx-0.1
+            tx = tx+0.1
         
         if key == 263 and (action==1 or action==2): # tecla esquerda
             ty = ty -0.1

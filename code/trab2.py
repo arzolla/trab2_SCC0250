@@ -189,10 +189,18 @@ while not glfw.window_should_close(window):
     
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     
-    obj.draw_obj('tree.obj', mat_model)
+    
     obj.draw_obj('pine_forest.obj', mat_model)
 
+
+    # translacao
+    t_x = 0.3 ; t_y = -2.3; t_z = 0.0;
+    # escala
+    s_x = 1.0; s_y = 1.0; s_z = 1.0;
     
+    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    obj.draw_obj('tree.obj', mat_model)
+
     angle = 0.0;
     r_x = 0.0; r_y = 0.0; r_z = 1.0;
     # translacao
