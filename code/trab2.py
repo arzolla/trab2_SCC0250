@@ -57,6 +57,7 @@ textures = glGenTextures(qtd_texturas)
 
 # Declaração dos objetos a partir de modelo e texturas 
 
+obj.declare_obj('chao.obj',['grass.jpg'])
 
 obj.declare_obj('hut.obj',['body.jpg','frame.jpg','roof_floor.jpg'])
 
@@ -66,9 +67,10 @@ obj.declare_obj('tree.obj',['folhas.jpg','tronco.jpg'])
 
 obj.declare_obj('skydome.obj',['milkyway.jpg'])
 
-
-
 obj.declare_obj('spaceship.obj',['spaceship.jpg'])
+
+obj.declare_obj('mothership.obj',['ms1.jpg','ms2.jpg','ms3.jpg','ms4.jpg','ms5.jpg'])
+
 
 # Envia variável de programa para módulo objects.py
 obj.program = program
@@ -175,7 +177,7 @@ while not glfw.window_should_close(window):
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
 
 
-    #obj.draw_obj('spaceship.obj', mat_model)
+    obj.draw_obj('spaceship.obj', mat_model)
     
 
 
@@ -211,8 +213,20 @@ while not glfw.window_should_close(window):
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     
     obj.draw_obj('hut.obj', mat_model)
-    #obj.draw_obj('forest.obj', mat_model)
     #obj.draw_obj('chao.obj', mat_model)
+
+    # rotacao
+    angle = 0.0;
+    r_x = 0.0; r_y = 0.0; r_z = 1.0;
+    # translacao
+    t_x = 0.0 ; t_y = 500.0; t_z = 0.0;
+    # escala
+    s_x = 10.0; s_y = 10.0; s_z = 10.0;
+    
+    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+
+    obj.draw_obj('mothership.obj', mat_model)
+    
     rotacao_inc += 0.1
  
   
