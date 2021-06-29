@@ -74,12 +74,10 @@ def load_texture_from_file(texture_id, img_textura):
 
 # Acesso aos paths de modelos e texturas
 def mod_path(obj):
-    path = os.path.join(sys.path[0],'sources','models',obj)
-    return path
+    return os.path.join(sys.path[0],'sources','models',obj)
 
 def tex_path(tex):
-    path = os.path.join(sys.path[0],'sources','textures',tex)
-    return path
+    return os.path.join(sys.path[0],'sources','textures',tex)
 
 # Matriz model
 def model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z):
@@ -119,7 +117,7 @@ def projection(altura,largura):
 
 
 ##############################################
-################### OBJETOS ##################
+############# FUNÇÕES DE OBJETOS #############
 ##############################################
 
 
@@ -134,6 +132,7 @@ texture_counter = 0
 texture_index = {
     # 'modelo' : [id_textura1, id_textura2, ...]
 }
+
 # Dicionário para armazenar inicio dos vértices e 
 # fim dos vértices de cada objeto interno no arquivo
 vertex_index = {
@@ -142,7 +141,8 @@ vertex_index = {
 ### Para facilidade, as chaves de ambos são o nome do modelo
 
 
-# Função para declarar os objetos, entrada é o modelo .obj e vetor com texturas
+# Função para declarar os objetos, entrada é o modelo .obj 
+# e vetor com texturas usadas neste modelo
 def declare_obj(model, textures):
     
     global vertex_index, texture_index
@@ -178,17 +178,17 @@ def declare_obj(model, textures):
     print(texture_index[model])
 
 
-
 # Variável instanciada para armazenar programa principal
 program = []
-
 
 def draw_obj(modelo, mat_model):
 
     loc_model = glGetUniformLocation(program, "model")
     glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
        
-    i = 0
+    # Insere os modelos de acordo com o número de indices de vértice
+    # Caso haja por exemplo três índices, isso significa q há dois 
+    # objetos a serem inseridos
     for i in range(len(vertex_index[modelo])-1):
         #define id da textura do modelo
         glBindTexture(GL_TEXTURE_2D, texture_index[modelo][i])

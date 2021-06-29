@@ -49,17 +49,25 @@ program = sb.run_shader()
 
 # Configura suporte a texturas
 glEnable(GL_TEXTURE_2D)
-qtd_texturas = 10
+qtd_texturas = 20
 textures = glGenTextures(qtd_texturas)
 
 ##############################################
 ################### OBJETOS ##################
 
-# Declaração dos objetos a partir de modelo e textura
+# Declaração dos objetos a partir de modelo e texturas 
 
 
 
-obj.declare_obj('chao.obj',['grass.jpg',])
+obj.declare_obj('chao.obj',['grass.jpg'])
+
+forest_tex = ['Kust_1.jpg','Kust_2.png','Paporotnik.png','Vetka_elka.png','tronco.jpg',
+                'Tree_android.png','Vetka_elka.png', 'grass.jpg'
+]
+
+obj.declare_obj('forest.obj',forest_tex)
+
+obj.declare_obj('pine_forest.obj',['pines.png','ground.jpeg'])
 
 obj.declare_obj('tree.obj',['folhas.jpg','tronco.jpg'])
 
@@ -141,9 +149,6 @@ while not glfw.window_should_close(window):
         glPolygonMode(GL_FRONT_AND_BACK,GL_FILL)
     
     
-    #obj.desenha_caixa()   
-    #obj.desenha_terreno()
-
 
     # rotacao
     angle = rotacao_inc/10;
@@ -184,8 +189,10 @@ while not glfw.window_should_close(window):
     
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     obj.draw_obj('tree.obj', mat_model)
-    obj.draw_obj('chao.obj', mat_model)
-
+    
+    obj.draw_obj('pine_forest.obj', mat_model)
+    #obj.draw_obj('forest.obj', mat_model)
+    #obj.draw_obj('chao.obj', mat_model)
     rotacao_inc += 0.1
  
   
