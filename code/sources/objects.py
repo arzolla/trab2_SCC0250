@@ -127,18 +127,22 @@ def projection(altura,largura):
 vertices_list = []    
 textures_coord_list = []
 
-# Dicionário para armazenar o indice da textura 
+# contador absoluto de numero de texturas inseridas
+texture_counter = 0
+
+# Dicionário para armazenar o indice das texturas 
 texture_index = {
     # 'modelo' : [id_textura1, id_textura2, ...]
 }
-# Dicionário para armazenar inicio e fim dos vértices 
+# Dicionário para armazenar inicio dos vértices e 
+# fim dos vértices de cada objeto interno no arquivo
 vertex_index = {
     # 'modelo' : [vertice_inicial, vertice_final1, vertice_final2, ...]]
 }
 ### Para facilidade, as chaves de ambos são o nome do modelo
 
 
-# Função para declarar os objetos
+# Função para declarar os objetos, entrada é o modelo .obj e vetor com texturas
 def declare_obj(model, textures):
     
     global vertex_index, texture_index
@@ -159,32 +163,24 @@ def declare_obj(model, textures):
             textures_coord_list.append( modelo['texture'][texture_id-1] )
     print('Processando modelo ',model,'. Vertice final:',len(vertices_list))
     vertex_index[model].append(len(vertices_list))
-
     print(vertex_index[model])
+    
     ### inserindo coordenadas de textura do modelo no vetor de texturas
-    #for i in range(len(textures))
-    ### carregando textura equivalente e definindo um id (buffer)
-    print('indice da textura',textures ,':',len(texture_index))
-    texture_index[model] = len(texture_index)
-    load_texture_from_file(texture_index[model],tex_path(textures))
+    # Para cada arquivo de textura inserido para este objeto
+    texture_index[model] = []
+    for i in range(len(textures)):
+        global texture_counter
+        ### carregando textura equivalente e definindo um id (buffer)
+        print('indice da textura',textures[i],':',texture_counter)
+        texture_index[model].append(texture_counter)
+        load_texture_from_file(texture_counter,tex_path(textures[i]))
+        texture_counter = texture_counter +1
+    print(texture_index[model])
 
 
 
 # Variável instanciada para armazenar programa principal
 program = []
-
-# aplica a matriz model
-
-    
-# rotacao
-angle = 0.0;
-r_x = 0.0; r_y = 0.0; r_z = 1.0;
-# translacao
-t_x = 0.0; t_y = -1.0; t_z = 0.0;
-# escala
-s_x = 1.0; s_y = 1.0; s_z = 1.0;
-
-mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
 
 
 def draw_obj(modelo, mat_model):
@@ -192,12 +188,14 @@ def draw_obj(modelo, mat_model):
     loc_model = glGetUniformLocation(program, "model")
     glUniformMatrix4fv(loc_model, 1, GL_TRUE, mat_model)
        
-    #define id da textura do modelo
-    glBindTexture(GL_TEXTURE_2D, texture_index[modelo])
-    
-    
-    # desenha o modelo
-    glDrawArrays(GL_TRIANGLES, vertex_index[modelo][0],vertex_index[modelo][1]-vertex_index[modelo][0] ) ## renderizando
+    i = 0
+    for i in range(len(vertex_index[modelo])-1):
+        #define id da textura do modelo
+        glBindTexture(GL_TEXTURE_2D, texture_index[modelo][i])
+
+
+        # desenha o modelo
+        glDrawArrays(GL_TRIANGLES, vertex_index[modelo][i],vertex_index[modelo][1+i]-vertex_index[modelo][i] ) ## renderizando
 
 
 

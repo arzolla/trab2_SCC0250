@@ -59,14 +59,15 @@ textures = glGenTextures(qtd_texturas)
 
 
 
-obj.declare_obj('chao.obj','grass.jpg')
+obj.declare_obj('chao.obj',['grass.jpg',])
 
-obj.declare_obj('tree.obj','folhas.jpg')
+obj.declare_obj('tree.obj',['folhas.jpg','tronco.jpg'])
 
-obj.declare_obj('skydome.obj','milkyway.jpg')
+obj.declare_obj('skydome.obj',['milkyway.jpg'])
 
 
-obj.declare_obj('spaceship.obj','spaceship.jpg')
+
+obj.declare_obj('spaceship.obj',['spaceship.jpg'])
 
 # Envia variável de programa para módulo objects.py
 obj.program = program
@@ -155,7 +156,7 @@ while not glfw.window_should_close(window):
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
 
 
-    #obj.draw_obj('skydome.obj', mat_model)
+    obj.draw_obj('skydome.obj', mat_model)
 
 
     # rotacao
