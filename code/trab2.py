@@ -158,19 +158,19 @@ while not glfw.window_should_close(window):
     # translacao
     t_x = 0.0; t_y = -1.0; t_z = 0.0;
     # escala
-    s_x = 500.0; s_y = 500.0; s_z = 500.0;
+    s_x = 800.0; s_y = 800.0; s_z = 800.0;
 
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
 
 
-    #obj.draw_obj('skydome.obj', mat_model)
+    obj.draw_obj('skydome.obj', mat_model)
 
 
     # rotacao
     angle = 0.0;
     r_x = 0.0; r_y = 0.0; r_z = 1.0;
     # translacao
-    t_x = 0.0 ; t_y = 5.0; t_z = rotacao_inc/10;
+    t_x = .0 ; t_y = 15.0; t_z = -15 +rotacao_inc/15;
     # escala
     s_x = 1.0; s_y = 1.0; s_z = 1.0;
 
@@ -219,9 +219,9 @@ while not glfw.window_should_close(window):
     angle = 0.0;
     r_x = 0.0; r_y = 0.0; r_z = 1.0;
     # translacao
-    t_x = 0.0 ; t_y = 500.0; t_z = 0.0;
+    t_x = 400 ; t_y = 400.0; t_z = +200 -rotacao_inc/2;
     # escala
-    s_x = 10.0; s_y = 10.0; s_z = 10.0;
+    s_x = 5.0; s_y = 5.0; s_z = 5.0;
     
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
 
