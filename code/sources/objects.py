@@ -74,13 +74,6 @@ def load_texture_from_file(texture_id, img_textura):
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data)
     #glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data)
 
-# Acesso aos paths de modelos e texturas
-def mod_path(obj):
-    return os.path.join(sys.path[0],'sources','models',obj)
-
-def tex_path(tex):
-    return os.path.join(sys.path[0],'sources','textures',tex)
-
 # Matriz model
 def model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z):
     
@@ -116,6 +109,13 @@ def projection(altura,largura):
     mat_projection = np.array(mat_projection)    
     return mat_projection
 
+# Acesso aos paths de modelos e texturas
+def model_path(obj):
+    return os.path.join(sys.path[0],'models',obj)
+
+def tex_path(mod,tex):
+    return os.path.join(sys.path[0],'textures',mod,tex)
+
 
 ##############################################
 ############# FUNÇÕES DE OBJETOS #############
@@ -147,24 +147,25 @@ vertex_index = {
 def declare_obj(model, textures):
     
     global vertex_index, texture_index
-    modelo = load_model_from_file(mod_path(model))
+    modelo = load_model_from_file(model_path(model))
 
     ### inserindo vertices do modelo no vetor de vertices
-    print('Processando modelo',model,'. Vertice inicial:',len(vertices_list))
+    print('___________________________________________')
+    print('Processando modelo',model,)
     faces_visited = []
     vertex_index[model] = []
     for face in modelo['faces']:
         if face[2] not in faces_visited:
-            print('Objeto',face[2],' Vertice inicial:', len(vertices_list))
+            print('Objeto',face[2],'. Vertice inicial:', len(vertices_list))
             vertex_index[model].append(len(vertices_list))
             faces_visited.append(face[2])
         for vertice_id in face[0]:
             vertices_list.append( modelo['vertices'][vertice_id-1] )
         for texture_id in face[1]:
             textures_coord_list.append( modelo['texture'][texture_id-1] )
-    print('Processando modelo ',model,'. Vertice final:',len(vertices_list))
+    print('Fim do modelo',model,'. Vertice final:',len(vertices_list))
     vertex_index[model].append(len(vertices_list))
-    print(vertex_index[model])
+
     
     ### inserindo coordenadas de textura do modelo no vetor de texturas
     # Para cada arquivo de textura inserido para este objeto
@@ -174,9 +175,8 @@ def declare_obj(model, textures):
         ### carregando textura equivalente e definindo um id (buffer)
         print('indice da textura',textures[i],':',texture_counter)
         texture_index[model].append(texture_counter)
-        load_texture_from_file(texture_counter,tex_path(textures[i]))
+        load_texture_from_file(texture_counter,tex_path(model,textures[i]))
         texture_counter = texture_counter +1
-    print(texture_index[model])
 
 
 # Variável instanciada para armazenar programa principal
