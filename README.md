@@ -22,9 +22,9 @@ ___
 Execute o arquivo ```/code/trab2.py``` para rodar o programa
 
 ___
-## Materiais Utilizados:
+## Materiais Utilizados [![CC BY 4.0][cc-by-shield]][cc-by] 
 
-[![CC BY 4.0][cc-by-shield]][cc-by] 
+
 
 Todos os materias são utilizados sob a licença [Creative Commons Attribution 4.0 International License][cc-by]
 
@@ -35,15 +35,15 @@ Todos os materias são utilizados sob a licença [Creative Commons Attribution 4
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
 
+<br />
 
 A imagem utilizada como textura para o céu foi obtida do *European Southern Observatory - ESO*
-
 * "The Milky Way panorama" - *ESO* - 
 Link: https://www.eso.org/public/images/eso0932a/
 
 <br />
 
-Os modelos utilizados foram adaptados dos modelos listados abaixo 
+Os modelos utilizados e suas texturas foram adaptados dos modelos listados abaixo 
 
 
 * "Intergalactic Spaceship" - Author: *3DHaupt* - 
