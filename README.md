@@ -12,6 +12,20 @@ Construir um cenário 3D a partir de modelos/malhas pré-existentes e com aplica
 textura. O programa deve permitir explorar o cenário por meio de manipulação do pipeline
 de Viewing 3D (Matrizes Model x View x Projection).
 
+___
+
+## Sobre:
+O trabalho foi desenvolvido em ```Python 2.7.9``` utilizando a bibblioteca ```PyOpenGL```.
+
+ **Dependências:**
+
+numpy             1.20.3
+
+Pillow            8.2.0
+
+PyGLM             2.2.0
+
+PyOpenGL          3.1.5
 
 
 ___
