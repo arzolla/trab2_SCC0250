@@ -17,15 +17,16 @@ de Viewing 3D (Matrizes Model x View x Projection).
 ___
 
 ## Sobre:
-O trabalho foi desenvolvido em ```Python 2.7.9``` utilizando a biblioteca ```PyOpenGL```.
+O trabalho foi desenvolvido em ```Python 3.7.9``` utilizando a biblioteca ```PyOpenGL```.
 
  **Dependências:**
+glfw              2.1.0
 
-numpy             1.20.3
+numpy             1.21.0
 
 Pillow            8.2.0
 
-PyGLM             2.2.0
+PyGLM             1.99.3
 
 PyOpenGL          3.1.5
 
