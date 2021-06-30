@@ -27,7 +27,9 @@ ___
 [![CC BY 4.0][cc-by-shield]][cc-by] 
 
 
-Os modelos utilizados foram adaptados dos modelos listados abaixo, sob a licença [Creative Commons Attribution 4.0 International License][cc-by]
+Os modelos utilizados foram adaptados dos modelos listados abaixo, 
+
+sob a licença [Creative Commons Attribution 4.0 International License][cc-by]
 
 [![CC BY 4.0][cc-by-image]][cc-by]
 
