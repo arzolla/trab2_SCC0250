@@ -192,7 +192,7 @@ while not glfw.window_should_close(window):
     #obj.draw_obj('chao.obj', mat_model)
 
 
-    s_x = 0.3; s_y = 0.3; s_z = 0.3;
+    s_x = 0.4; s_y = 0.4; s_z = 0.4;
     
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     obj.draw_obj('remains.obj', mat_model)
@@ -246,13 +246,9 @@ while not glfw.window_should_close(window):
     #print(cameraPos)
     #print(cameraUp)
     #print(cameraFront)
-    if cameraPos[1] > -1.74: 
-        cameraPos   = cmd.cameraPos
-    else:
-        cameraPos = cameraPos
+
     
-
-
+    cameraPos   = cameraPos
     cameraFront = cmd.cameraFront
     cameraUp    = cmd.cameraUp
 
