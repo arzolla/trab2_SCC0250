@@ -12,6 +12,8 @@ Construir um cenário 3D a partir de modelos/malhas pré-existentes e com aplica
 textura. O programa deve permitir explorar o cenário por meio de manipulação do pipeline
 de Viewing 3D (Matrizes Model x View x Projection).
 
+<br />
+
 ___
 
 ## Sobre:
@@ -27,6 +29,7 @@ PyGLM             2.2.0
 
 PyOpenGL          3.1.5
 
+<br />
 
 ___
 
@@ -34,6 +37,8 @@ ___
 
 
 Execute o arquivo ```/code/trab2.py``` para rodar o programa
+
+<br />
 
 ___
 ## Materiais Utilizados [![CC BY 4.0][cc-by-shield]][cc-by] 
