@@ -123,12 +123,6 @@ glEnable(GL_BLEND)
 glEnable(GL_DEPTH_TEST) ### importante para 3D
 
 
-# glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE)
-# glEnable( GL_BLEND )
-#glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ) # transparencia bugada
-# glEnable(GL_LINE_SMOOTH)
-# glEnable(GL_TEXTURE_2D)
-
 
 rotacao_inc = 0
 cameraPos   = cmd.cameraPos
