@@ -30,6 +30,8 @@ fragment_code = """
         
         void main(){
             vec4 texture = texture2D(samplerTexture, out_texture);
+            if(texture.a < 0.5)
+                discard;
             gl_FragColor = texture;
         }
         """
