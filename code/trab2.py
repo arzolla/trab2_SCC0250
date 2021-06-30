@@ -49,7 +49,7 @@ program = sb.run_shader()
 
 # Configura suporte a texturas
 glEnable(GL_TEXTURE_2D)
-qtd_texturas = 25
+qtd_texturas = 30
 textures = glGenTextures(qtd_texturas)
 
 ##############################################
@@ -71,7 +71,9 @@ obj.declare_obj('spaceship.obj',['spaceship.jpg'])
 
 obj.declare_obj('mothership.obj',['ms1.jpg','ms2.jpg','ms3.jpg','ms4.jpg','ms5.jpg'])
 
-obj.declare_obj('remains.obj',['limb.jpg','body.jpg','skull.jpg','stones.png','sticks.png'])
+obj.declare_obj('remains.obj',['limb.jpg','body.jpg','skull.jpg','stones.jpg','sticks.jpg'])
+
+obj.declare_obj('alien.obj',['blaster.jpg','alien.jpg'])
 
 # Envia variável de programa para módulo objects.py
 obj.program = program
@@ -123,9 +125,10 @@ glEnable(GL_DEPTH_TEST) ### importante para 3D
 
 # glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE)
 # glEnable( GL_BLEND )
-# glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA )
+#glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ) # transparencia bugada
 # glEnable(GL_LINE_SMOOTH)
 # glEnable(GL_TEXTURE_2D)
+
 
 rotacao_inc = 0
 cameraPos   = cmd.cameraPos
@@ -191,8 +194,8 @@ while not glfw.window_should_close(window):
 
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     
-    #obj.draw_obj('pine_forest.obj', mat_model)
-    obj.draw_obj('chao.obj', mat_model)
+    obj.draw_obj('pine_forest.obj', mat_model)
+    #obj.draw_obj('chao.obj', mat_model)
 
 
     s_x = 0.3; s_y = 0.3; s_z = 0.3;
@@ -218,6 +221,16 @@ while not glfw.window_should_close(window):
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     
     obj.draw_obj('hut.obj', mat_model)
+
+
+    angle = -90.0;
+    r_x = 0.0; r_y = 1.0; r_z = 0.0;
+
+    s_x = 0.1; s_y = 0.1; s_z = 0.1;
+    
+    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+
+    obj.draw_obj('alien.obj', mat_model)
 
 
     # rotacao
