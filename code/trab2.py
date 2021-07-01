@@ -185,21 +185,28 @@ while not glfw.window_should_close(window):
     r_x = 0.0; r_y = 0.0; r_z = 1.0;
     # translacao
     t_x = 0.0 ; t_y = -2.0; t_z = 0.0;
-    # escala
+
 
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     
     obj.draw_obj('pine_forest.obj', mat_model)
     #obj.draw_obj('chao.obj', mat_model)
 
-
+    # escala
     s_x = 0.4; s_y = 0.4; s_z = 0.4;
     
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     obj.draw_obj('remains.obj', mat_model)
 
+    # rotacao
+    angle = 45.0;
+    r_x = 0.0; r_y = 1.0; r_z = 0.0;
+    # translacao
+    t_x = -2.6 ; t_y = -1.6; t_z = 5.7;
+    # escala
     s_x = 10; s_y = 10; s_z = 10;
     
+    # aumentar tamanho e posicionar 
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     obj.draw_obj('stove.obj', mat_model)
 
@@ -224,9 +231,10 @@ while not glfw.window_should_close(window):
     obj.draw_obj('hut.obj', mat_model)
 
 
-    angle = -90.0;
+    angle = -180.0;
     r_x = 0.0; r_y = 1.0; r_z = 0.0;
 
+    t_x = 1 ; t_y = -1.95 ; t_z = 8;
     s_x = 0.1; s_y = 0.1; s_z = 0.1;
     
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
@@ -238,7 +246,7 @@ while not glfw.window_should_close(window):
     angle = 0.0;
     r_x = 0.0; r_y = 0.0; r_z = 1.0;
     # translacao
-    t_x = 400 ; t_y = 400.0; t_z = +200 -rotacao_inc/2;
+    t_x = 300 ; t_y = 300.0; t_z = +200 -rotacao_inc/3;
     # escala
     s_x = 5.0; s_y = 5.0; s_z = 5.0;
     

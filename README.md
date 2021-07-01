@@ -86,3 +86,11 @@ Link: https://sketchfab.com/3d-models/alien-hominid-f66cadfce97d4b83b50f36e2a535
 
 * "Remains" - Author: *seenoise* - 
 Link: https://sketchfab.com/3d-models/remains-7663ab71893f44b2b6466db3c625b061
+
+
+* Small Stove - Author: mafroz
+Link: https://sketchfab.com/3d-models/small-stove-ac6e112bd6294288bf7544d5ebd93c8f
+
+
+* Birch Tree - Author: sandralavixen
+Link: https://free3d.com/3d-model/birch-tree-48016.html
