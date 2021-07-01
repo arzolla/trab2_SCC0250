@@ -123,7 +123,6 @@ glEnable(GL_BLEND)
 glEnable(GL_DEPTH_TEST) ### importante para 3D
 
 
-
 rotacao_inc = 0
 cameraPos   = cmd.cameraPos
 cameraFront = cmd.cameraFront

@@ -135,7 +135,7 @@ texture_index = {
 }
 
 # Dicionário para armazenar inicio dos vértices e 
-# fim dos vértices de cada objeto interno no arquivo
+# fim dos vértices de cada material interno no arquivo
 vertex_index = {
     # 'modelo' : [vertice_inicial, vertice_final1, vertice_final2, ...]]
 }
@@ -151,19 +151,19 @@ def declare_obj(model, textures):
 
     ### inserindo vertices do modelo no vetor de vertices
     print('___________________________________________')
-    print('Processando modelo',model,)
+    print('Processando modelo',model,'. Materiais:')
     faces_visited = []
     vertex_index[model] = []
     for face in modelo['faces']:
         if face[2] not in faces_visited:
-            print('Objeto',face[2],'. Vertice inicial:', len(vertices_list))
+            print("{:27} {} {:5}".format(face[2],'- Vertice inicial:', len(vertices_list)))
             vertex_index[model].append(len(vertices_list))
             faces_visited.append(face[2])
         for vertice_id in face[0]:
             vertices_list.append( modelo['vertices'][vertice_id-1] )
         for texture_id in face[1]:
             textures_coord_list.append( modelo['texture'][texture_id-1] )
-    print('Fim do modelo',model,'. Vertice final:',len(vertices_list))
+    print("{} {:20} {} {:1}".format('Fim de',model,'- Vertice final  :', len(vertices_list)))  
     vertex_index[model].append(len(vertices_list))
 
     
@@ -173,7 +173,7 @@ def declare_obj(model, textures):
     for i in range(len(textures)):
         global texture_counter
         ### carregando textura equivalente e definindo um id (buffer)
-        print('indice da textura',textures[i],':',texture_counter)
+        print("{} {:15} {} {:1}".format('Índice da textura',textures[i],':',texture_counter))
         texture_index[model].append(texture_counter)
         load_texture_from_file(texture_counter,tex_path(model,textures[i]))
         texture_counter = texture_counter +1
