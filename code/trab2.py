@@ -63,6 +63,8 @@ obj.declare_obj('hut.obj',['body.jpg','frame.jpg','roof_floor.jpg'])
 
 obj.declare_obj('pine_forest.obj',['pines.png','ground.jpeg'])
 
+obj.declare_obj('mountain.obj',['rocks.jpg'])
+
 obj.declare_obj('tree.obj',['folhas.jpg','tronco.jpg'])
 
 obj.declare_obj('skydome.obj',['milkyway.jpg'])
@@ -190,6 +192,7 @@ while not glfw.window_should_close(window):
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     
     obj.draw_obj('pine_forest.obj', mat_model)
+    obj.draw_obj('mountain.obj', mat_model)
     #obj.draw_obj('chao.obj', mat_model)
 
     # escala
