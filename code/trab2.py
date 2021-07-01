@@ -75,6 +75,8 @@ obj.declare_obj('remains.obj',['limb.jpg','body.jpg','skull.jpg','stones.jpg','s
 
 obj.declare_obj('alien.obj',['blaster.jpg','alien.jpg'])
 
+obj.declare_obj('stove.obj',['stove.jpeg'])
+
 # Envia variável de programa para módulo objects.py
 obj.program = program
 
@@ -195,6 +197,12 @@ while not glfw.window_should_close(window):
     
     mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     obj.draw_obj('remains.obj', mat_model)
+
+    s_x = 10; s_y = 10; s_z = 10;
+    
+    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    obj.draw_obj('stove.obj', mat_model)
+
 
     # translacao
     t_x = 0.4 ; t_y = -2.3; t_z = 0.0;
