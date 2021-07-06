@@ -200,5 +200,95 @@ def projection(altura,largura):
 
 
 ##############################################
-############# OBJETOS #############
+################### OBJETOS ##################
 ##############################################
+
+
+def draw_sky(rotacao_inc):
+    # rotacao
+    angle = 90 +rotacao_inc/10;
+    r_x = 1.0; r_y = -1.0; r_z = 0.0;
+    # translacao
+    t_x = 0.0; t_y = -1.0; t_z = 0.0;
+    # escala
+    s_x = 800.0; s_y = 800.0; s_z = 800.0;
+
+    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+
+
+    draw_obj('skydome.obj', mat_model)
+
+def draw_spaceships(tz_inc):
+    # rotacao
+    angle = 0.0;
+    r_x = 0.0; r_y = 0.0; r_z = 1.0;
+    # translacao
+    t_x = .0 ; t_y = 15.0; t_z = -15 +tz_inc/15;
+    # escala
+    s_x = 1.0; s_y = 1.0; s_z = 1.0;
+
+    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    draw_obj('spaceship.obj', mat_model)
+
+
+    # translacao
+    t_x = 300 ; t_y = 300.0; t_z = +200 -tz_inc/5;
+    # escala
+    s_x = 5.0; s_y = 5.0; s_z = 5.0;
+    
+    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    draw_obj('mothership.obj', mat_model)
+
+def draw_scene():
+    # rotacao
+    angle = 0.0;
+    r_x = 0.0; r_y = 0.0; r_z = 1.0;
+    # translacao
+    t_x = 0.0 ; t_y = -2.0; t_z = 0.0;
+    # escala
+    s_x = 1.0; s_y = 1.0; s_z = 1.0;
+    # insere floresta e montanhas ao redor
+    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    draw_obj('pine_forest.obj', mat_model)
+    draw_obj('mountain.obj', mat_model)
+
+    # translacao
+    t_x = 0.4 ; t_y = -2.3; t_z = 0.0;
+    # insere arvore interna
+    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    draw_obj('tree.obj', mat_model)
+
+    # translacao
+    t_x = 5.5 ; t_y = -2 ; t_z = 2.2;
+    # insere cabana
+    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    draw_obj('hut.obj', mat_model)
+
+    # translacao
+    t_x = 0.0 ; t_y = -2.0; t_z = 0.0;
+    # escala
+    s_x = 0.4; s_y = 0.4; s_z = 0.4;
+    # insere esqueleto
+    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    draw_obj('remains.obj', mat_model)
+
+    # rotacao
+    angle = 45.0;
+    r_x = 0.0; r_y = 1.0; r_z = 0.0;
+    # translacao
+    t_x = -2.6 ; t_y = -1.6; t_z = 5.7;
+    # escala
+    s_x = 10; s_y = 10; s_z = 10;
+    # insere forno
+    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    draw_obj('stove.obj', mat_model)
+
+    # rotacao
+    angle = -180.0;
+    # translacao
+    t_x = 1 ; t_y = -1.95 ; t_z = 8;
+    # escala
+    s_x = 0.1; s_y = 0.1; s_z = 0.1;
+    # insere alien
+    mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    draw_obj('alien.obj', mat_model)

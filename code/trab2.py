@@ -123,10 +123,11 @@ cmd.commands()
 glfw.show_window(window)
 glfw.set_cursor_pos(window, cmd.lastX, cmd.lastY)
 
+# Configurações do OpenGL
 glEnable(GL_BLEND)
 glEnable(GL_DEPTH_TEST) ### importante para 3D
 
-
+# Variáveis para laço principal
 rotacao_inc = 0
 cameraPos   = cmd.cameraPos
 cameraFront = cmd.cameraFront
@@ -153,110 +154,14 @@ while not glfw.window_should_close(window):
     
     
 
-    # rotacao
-    angle = rotacao_inc/10;
-    r_x = 1.0; r_y = 1.0; r_z = 0.0;
-    # translacao
-    t_x = 0.0; t_y = -1.0; t_z = 0.0;
-    # escala
-    s_x = 800.0; s_y = 800.0; s_z = 800.0;
-
-    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
+    obj.draw_sky(rotacao_inc)
 
 
-    obj.draw_obj('skydome.obj', mat_model)
-
-
-    # rotacao
-    angle = 0.0;
-    r_x = 0.0; r_y = 0.0; r_z = 1.0;
-    # translacao
-    t_x = .0 ; t_y = 15.0; t_z = -15 +rotacao_inc/15;
-    # escala
-    s_x = 1.0; s_y = 1.0; s_z = 1.0;
-
-    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-
-
-    obj.draw_obj('spaceship.obj', mat_model)
+    obj.draw_spaceships(rotacao_inc)
     
+    obj.draw_scene()
 
 
-    # rotacao
-    angle = 0.0;
-    r_x = 0.0; r_y = 0.0; r_z = 1.0;
-    # translacao
-    t_x = 0.0 ; t_y = -2.0; t_z = 0.0;
-
-
-    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-    
-    obj.draw_obj('pine_forest.obj', mat_model)
-    obj.draw_obj('mountain.obj', mat_model)
-    #obj.draw_obj('chao.obj', mat_model)
-
-    # escala
-    s_x = 0.4; s_y = 0.4; s_z = 0.4;
-    
-    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-    obj.draw_obj('remains.obj', mat_model)
-
-    # rotacao
-    angle = 45.0;
-    r_x = 0.0; r_y = 1.0; r_z = 0.0;
-    # translacao
-    t_x = -2.6 ; t_y = -1.6; t_z = 5.7;
-    # escala
-    s_x = 10; s_y = 10; s_z = 10;
-    
-    # aumentar tamanho e posicionar 
-    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-    obj.draw_obj('stove.obj', mat_model)
-
-
-    # translacao
-    t_x = 0.4 ; t_y = -2.3; t_z = 0.0;
-    # escala
-    s_x = 1.0; s_y = 1.0; s_z = 1.0;
-    
-    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-    obj.draw_obj('tree.obj', mat_model)
-
-    angle = 0.0;
-    r_x = 0.0; r_y = 0.0; r_z = 1.0;
-    # translacao
-    t_x = 5.5 ; t_y = -2 ; t_z = 2.2;
-    # escala
-    s_x = 1.0; s_y = 1.0; s_z = 1.0;
-    
-    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-    
-    obj.draw_obj('hut.obj', mat_model)
-
-
-    angle = -180.0;
-    r_x = 0.0; r_y = 1.0; r_z = 0.0;
-
-    t_x = 1 ; t_y = -1.95 ; t_z = 8;
-    s_x = 0.1; s_y = 0.1; s_z = 0.1;
-    
-    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-
-    obj.draw_obj('alien.obj', mat_model)
-
-
-    # rotacao
-    angle = 0.0;
-    r_x = 0.0; r_y = 0.0; r_z = 1.0;
-    # translacao
-    t_x = 300 ; t_y = 300.0; t_z = +200 -rotacao_inc/3;
-    # escala
-    s_x = 5.0; s_y = 5.0; s_z = 5.0;
-    
-    mat_model = obj.model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
-
-    obj.draw_obj('mothership.obj', mat_model)
-    
     rotacao_inc += 0.1
  
   
