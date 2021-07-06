@@ -26,7 +26,6 @@ tz = 0
 
 def commands():
 
-
     # Define eventos do teclado
     def key_event(window,key,scancode,action,mods):
         

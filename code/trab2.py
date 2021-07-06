@@ -129,6 +129,7 @@ glEnable(GL_DEPTH_TEST) ### importante para 3D
 
 # Variáveis para laço principal
 rotacao_inc = 0
+# Variáveis de câmera
 cameraPos   = cmd.cameraPos
 cameraFront = cmd.cameraFront
 cameraUp    = cmd.cameraUp
@@ -141,7 +142,6 @@ cameraUp    = cmd.cameraUp
 while not glfw.window_should_close(window):
 
     glfw.poll_events() 
-    
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     
@@ -156,7 +156,6 @@ while not glfw.window_should_close(window):
 
     obj.draw_sky(rotacao_inc)
 
-
     obj.draw_spaceships(rotacao_inc)
     
     obj.draw_scene()
@@ -169,14 +168,12 @@ while not glfw.window_should_close(window):
     #print(cameraPos)
     #print(cameraUp)
     #print(cameraFront)
-
     
-    cameraPos   = cameraPos
+    
     cameraFront = cmd.cameraFront
-    cameraUp    = cmd.cameraUp
-
-
     
+
+
     mat_view = obj.view(cameraPos, cameraFront, cameraUp)
     loc_view = glGetUniformLocation(program, "view")
     glUniformMatrix4fv(loc_view, 1, GL_FALSE, mat_view)

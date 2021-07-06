@@ -232,7 +232,7 @@ def draw_spaceships(tz_inc):
 
 
     # translacao
-    t_x = 300 ; t_y = 300.0; t_z = +200 -tz_inc/5;
+    t_x = 300 ; t_y = 300.0; t_z = +200 -tz_inc/10;
     # escala
     s_x = 5.0; s_y = 5.0; s_z = 5.0;
     
