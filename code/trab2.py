@@ -156,7 +156,6 @@ while not glfw.window_should_close(window):
     if cmd.polygonal_mode==False:
         glPolygonMode(GL_FRONT_AND_BACK,GL_FILL)
     
-    
 
     obj.draw_sky(rotacao_inc)
 
@@ -168,8 +167,6 @@ while not glfw.window_should_close(window):
     rotacao_inc += 0.1
  
   
-
-
     mat_view = cmd.view()
     loc_view = glGetUniformLocation(program, "view")
     glUniformMatrix4fv(loc_view, 1, GL_FALSE, mat_view)

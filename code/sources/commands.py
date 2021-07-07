@@ -9,30 +9,15 @@ altura = 0
 largura = 0
 window = 0
 
-# Variaveis de câmera
-cameraPos   = glm.vec3(0.0,  0.0,  1.0);
-cameraFront = glm.vec3(0.0,  0.0, -1.0);
-cameraUp    = glm.vec3(0.0,  1.0,  0.0);
-
-# Modo poligonal
-polygonal_mode = False
-
-# Variáveis de mouse
-firstMouse = True
-yaw = -90.0 
-pitch = 0.0
-lastX =  largura/2
-lastY =  altura/2
-
-# Matriz Projection
-fov = 45
-
-near = 0.1 
-far = 1000.0
-
 ##############################################
 ############# FUNÇÕES DE MATRIZES ############
 ##############################################
+
+# Matriz Projection
+fov = 45
+near = 0.1 
+far = 1000.0
+
 
 def view():
     global cameraPos, cameraFront, cameraUp
@@ -52,12 +37,34 @@ def projection():
 ############## COMANDOS DE INPUT #############
 ##############################################
 
+# Modo poligonal
+polygonal_mode = False
+
+# Variáveis de mouse
+firstMouse = True
+yaw = -90.0 
+pitch = 0.0
+lastX =  largura/2
+lastY =  altura/2
+
+# Variaveis de câmera
+cameraPos   = glm.vec3(0.0,  0.0,  1.0);
+cameraFront = glm.vec3(0.0,  0.0, -1.0);
+cameraUp    = glm.vec3(0.0,  1.0,  0.0);
+cameraPos_antes = glm.vec3(0.0,  1.0,  0.0);
+
+
+
+
+
+
 def commands():
 
     # Define eventos do teclado
     def key_event(window,key,scancode,action,mods):
         
         global cameraPos, cameraFront, cameraUp, polygonal_mode
+        global cameraPos_antes
 
         cameraSpeed = 0.2
         if key == 87 and (action==1 or action==2): # tecla W
@@ -74,6 +81,27 @@ def commands():
             
         if key == 80 and action==1:
             polygonal_mode = not(polygonal_mode)
+
+        # limitando altura da camera dentro do cenário
+        if cameraPos[1] <= -0.092 : cameraPos[1] = -0.092
+        if cameraPos[1] >= 17 : cameraPos[1] = 17
+        
+        # raio máximo do movimento no plano
+        r_max = 20
+        # raio atual da câmera
+        r_atual = ((cameraPos[0]**2) + (cameraPos[2]**2))**(1/2)
+
+
+        # se raio atual for menor q raio maximo
+        if r_atual <= r_max:
+            # salva posição atual
+            cameraPos_antes[0] = cameraPos[0]
+            cameraPos_antes[2] = cameraPos[2]
+        else: # se raio atual for maior q raio maximo
+            # mantém a posição anterior
+            cameraPos[0] = cameraPos_antes[0]
+            cameraPos[2] = cameraPos_antes[2]
+
 
         global fov, near, far
 
@@ -95,9 +123,8 @@ def commands():
         if key == 78 and (action==1 or action==2): # tecla N
             far /= 1.01
     
-        print(key,scancode,action,mods)            
+       # print(key,scancode,action,mods)            
                      
-
     # Define eventos do mouse
     def mouse_event(window, xpos, ypos):
         
