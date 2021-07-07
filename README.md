@@ -20,6 +20,7 @@ ___
 O trabalho foi desenvolvido em ```Python 3.7.9``` utilizando a biblioteca ```PyOpenGL```.
 
  **Dependências:**
+ 
 glfw              2.1.0
 
 numpy             1.21.0
