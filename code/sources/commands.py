@@ -109,20 +109,22 @@ def commands():
 
         yaw += xoffset;
         pitch += yoffset;
+        print('_____________________________')
+        print('yaw pitch:',yaw,pitch)
+        print('xpos ypos:',xpos,ypos)
 
-        
-        print(xpos,ypos)
 
-        if pitch >= 90.0: pitch = 90.0
-        if pitch <= -90.0: pitch = -90.0
+        # CAMERA BUGA SE ANGULO DO PITCH FOR
+        # >= 90   OU   <= -90
+        if pitch >= 89.99: pitch = 89.99
+        if pitch <= -89.99: pitch = -89.99
+
 
         front = glm.vec3()
-        # ERRO AQUI
-        # NUMEROS PULAM PRA INFINITESIMAL
+
         front.x = math.cos(glm.radians(yaw)) * math.cos(glm.radians(pitch))
         front.y = math.sin(glm.radians(pitch))
         front.z = math.sin(glm.radians(yaw)) * math.cos(glm.radians(pitch))
-        print(front)
         cameraFront = glm.normalize(front)
 
     glfw.set_key_callback(window, key_event)
