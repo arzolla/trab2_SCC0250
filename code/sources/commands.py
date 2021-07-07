@@ -4,6 +4,11 @@ import math
 import numpy as np
 
 
+# Variáveis de janela 
+altura = 0
+largura = 0
+window = 0
+
 # Variaveis de câmera
 cameraPos   = glm.vec3(0.0,  0.0,  1.0);
 cameraFront = glm.vec3(0.0,  0.0, -1.0);
@@ -16,15 +21,34 @@ polygonal_mode = False
 firstMouse = True
 yaw = -90.0 
 pitch = 0.0
-lastX =  []
-lastY =  []
+lastX =  largura/2
+lastY =  altura/2
 
 # Inputs
 tx = 0
 ty = 0
 tz = 0
 
+
+
+def view():
+    global cameraPos, cameraFront, cameraUp
+    mat_view = glm.lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+    mat_view = np.array(mat_view)
+    return mat_view
+
+def projection():
+    global altura, largura
+    # perspective parameters: fovy, aspect, near, far
+    mat_projection = glm.perspective(glm.radians(45.0), largura/altura, 0.1, 1000.0)
+    mat_projection = np.array(mat_projection)    
+    return mat_projection
+
+
+
+
 def commands():
+
 
     # Define eventos do teclado
     def key_event(window,key,scancode,action,mods):
@@ -68,7 +92,6 @@ def commands():
     def mouse_event(window, xpos, ypos):
         
         global firstMouse, cameraFront, yaw, pitch, lastX, lastY
-        global altura, largura
 
         if firstMouse:
             lastX = xpos
@@ -88,13 +111,18 @@ def commands():
         pitch += yoffset;
 
         
+        print(xpos,ypos)
+
         if pitch >= 90.0: pitch = 90.0
         if pitch <= -90.0: pitch = -90.0
 
         front = glm.vec3()
+        # ERRO AQUI
+        # NUMEROS PULAM PRA INFINITESIMAL
         front.x = math.cos(glm.radians(yaw)) * math.cos(glm.radians(pitch))
         front.y = math.sin(glm.radians(pitch))
         front.z = math.sin(glm.radians(yaw)) * math.cos(glm.radians(pitch))
+        print(front)
         cameraFront = glm.normalize(front)
 
     glfw.set_key_callback(window, key_event)

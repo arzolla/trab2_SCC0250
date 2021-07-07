@@ -109,11 +109,15 @@ sb.texture_buffer(textures)
 ################### COMANDOS #################
 
 # Envia variáveis de janela para modulo commands.py
-cmd.lastX =  largura/2
-cmd.lastY =  altura/2
+cmd.altura = altura
+cmd.largura = largura
+
 cmd.window = window
 # Ativa os comandos de teclado e mouse
 cmd.commands()
+
+
+
 
 
 #########################################
@@ -164,23 +168,22 @@ while not glfw.window_should_close(window):
     rotacao_inc += 0.1
  
   
-    #print('------------------')
-    #print(cameraPos)
-    #print(cameraUp)
-    #print(cameraFront)
-    
-    
-    cameraFront = cmd.cameraFront
+
     
 
-
-    mat_view = obj.view(cameraPos, cameraFront, cameraUp)
+    mat_view = cmd.view()
     loc_view = glGetUniformLocation(program, "view")
     glUniformMatrix4fv(loc_view, 1, GL_FALSE, mat_view)
 
-    mat_projection = obj.projection(altura,largura)
+    mat_projection = cmd.projection()
     loc_projection = glGetUniformLocation(program, "projection")
-    glUniformMatrix4fv(loc_projection, 1, GL_FALSE, mat_projection)    
+    glUniformMatrix4fv(loc_projection, 1, GL_FALSE, mat_projection)   
+
+    # print(cmd.cameraPos)
+    # print(cmd.cameraUp)
+    # print(cmd.cameraFront)
+    # print(mat_view)
+ 
     
     
 

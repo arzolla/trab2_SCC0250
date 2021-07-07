@@ -183,20 +183,6 @@ def model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z):
     
     return matrix_transform
 
-# Matriz view
-def view(cameraPos, cameraFront, cameraUp):
-
-    mat_view = glm.lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-    mat_view = np.array(mat_view)
-    return mat_view
-
-# Matriz projection
-def projection(altura,largura):
-
-    # perspective parameters: fovy, aspect, near, far
-    mat_projection = glm.perspective(glm.radians(45.0), largura/altura, 0.1, 1000.0)
-    mat_projection = np.array(mat_projection)    
-    return mat_projection
 
 
 ##############################################
