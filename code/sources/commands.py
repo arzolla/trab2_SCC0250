@@ -24,12 +24,15 @@ pitch = 0.0
 lastX =  largura/2
 lastY =  altura/2
 
-# Inputs
-tx = 0
-ty = 0
-tz = 0
+# Matriz Projection
+fov = 45
 
+near = 0.1 
+far = 1000.0
 
+##############################################
+############# FUNÇÕES DE MATRIZES ############
+##############################################
 
 def view():
     global cameraPos, cameraFront, cameraUp
@@ -39,16 +42,17 @@ def view():
 
 def projection():
     global altura, largura
+    global fov
     # perspective parameters: fovy, aspect, near, far
-    mat_projection = glm.perspective(glm.radians(45.0), largura/altura, 0.1, 1000.0)
+    mat_projection = glm.perspective(glm.radians(fov), largura/altura, near, far)
     mat_projection = np.array(mat_projection)    
     return mat_projection
 
-
-
+##############################################
+############## COMANDOS DE INPUT #############
+##############################################
 
 def commands():
-
 
     # Define eventos do teclado
     def key_event(window,key,scancode,action,mods):
@@ -63,28 +67,34 @@ def commands():
             cameraPos -= cameraSpeed * cameraFront
         
         if key == 65 and (action==1 or action==2): # tecla A
-            cameraPos -= glm.normalize(glm.cross(cameraFront, cameraUp)) * cameraSpeed
+            cameraPos -= .7*glm.normalize(glm.cross(cameraFront, cameraUp)) * cameraSpeed
             
         if key == 68 and (action==1 or action==2): # tecla D
-            cameraPos += glm.normalize(glm.cross(cameraFront, cameraUp)) * cameraSpeed
+            cameraPos += .7*glm.normalize(glm.cross(cameraFront, cameraUp)) * cameraSpeed
             
         if key == 80 and action==1:
             polygonal_mode = not(polygonal_mode)
 
-        global tx, ty
+        global fov, near, far
 
-        if key == 265 and (action==1 or action==2): # tecla cima
-            tx = tx-0.1
+        if key == 70 and (action==1 or action==2): # tecla F
+            fov += 1
+
+        if key == 71 and (action==1 or action==2): # tecla G
+            fov -= 1
         
-        if key == 264 and (action==1 or action==2): # tecla baixo
-            tx = tx+0.1
+        if key == 67 and (action==1 or action==2): # tecla C
+            near *= 1.05
         
-        if key == 263 and (action==1 or action==2): # tecla esquerda
-            ty = ty -0.1
+        if key == 86 and (action==1 or action==2): # tecla V
+            near /= 1.05
             
-        if key == 262 and (action==1 or action==2): # tecla direita
-            ty = ty +0.1
-        print('tx ty:',tx,ty)    
+        if key == 66 and (action==1 or action==2): # tecla B
+            far *= 1.01
+        
+        if key == 78 and (action==1 or action==2): # tecla N
+            far /= 1.01
+    
         print(key,scancode,action,mods)            
                      
 
@@ -109,10 +119,6 @@ def commands():
 
         yaw += xoffset;
         pitch += yoffset;
-        print('_____________________________')
-        print('yaw pitch:',yaw,pitch)
-        print('xpos ypos:',xpos,ypos)
-
 
         # CAMERA BUGA SE ANGULO DO PITCH FOR
         # >= 90   OU   <= -90

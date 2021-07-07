@@ -114,7 +114,7 @@ def declare_obj(model, textures):
     modelo = load_model_from_file(model_path(model))
 
     ### inserindo vertices do modelo no vetor de vertices
-    print('___________________________________________')
+    print('_____________________________________________________')
     print('Processando modelo',model,'. Materiais:')
     faces_visited = []
     vertex_index[model] = []

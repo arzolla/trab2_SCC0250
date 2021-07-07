@@ -169,7 +169,6 @@ while not glfw.window_should_close(window):
  
   
 
-    
 
     mat_view = cmd.view()
     loc_view = glGetUniformLocation(program, "view")
@@ -179,11 +178,6 @@ while not glfw.window_should_close(window):
     loc_projection = glGetUniformLocation(program, "projection")
     glUniformMatrix4fv(loc_projection, 1, GL_FALSE, mat_projection)   
 
-    print(cmd.cameraPos)
-    print(cmd.cameraUp)
-    print(cmd.cameraFront)
-    print(mat_view)
- 
     
     
 
