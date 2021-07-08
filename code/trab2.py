@@ -11,19 +11,19 @@
 # Importando dependências
 import glfw
 from OpenGL.GL import *
-import OpenGL.GL.shaders
+#import OpenGL.GL.shaders
 import numpy as np
 import math
 import glm
+from PIL import Image
 import sys, os
 sys.path.append(os.path.join(sys.path[0],'sources'))
 
 # Importa módulo com os codigos referentes aos shaders e buffer
-from shader_buffer import *
+import shader_buffer as sb
 # Importa módulo com os codigos referentes aos comandos de teclado
-import key_commands as key_c
-from objects import *
-
+import commands as cmd
+import objects as obj
 
 # inicializa o GLFW
 if  glfw.init():
@@ -31,167 +31,147 @@ if  glfw.init():
 else:
     print("Erro na inicialização do GLFW")
 
-# criando a janela
+# Declarando a janela
 glfw.init()
 glfw.window_hint(glfw.VISIBLE, glfw.FALSE);
+largura = 1280
 altura = 720
-largura = 720
 window = glfw.create_window(largura, altura, "Trabalho 2 - Cenário 3D", None, None)
 glfw.make_context_current(window)
 
 
+##############################################
+##############################################
 
 # Função para rodar shaders, retorna variavel programa principal
-program = run_shader()
+program = sb.run_shader()
+
+# Configura suporte a texturas
+glEnable(GL_TEXTURE_2D)
+qtd_texturas = 30
+textures = glGenTextures(qtd_texturas)
+
+##############################################
+################### OBJETOS ##################
+
+# Declaração dos objetos a partir de modelo e texturas 
+
+obj.declare_obj('chao.obj',['grass.jpg'])
+
+obj.declare_obj('hut.obj',['body.jpg','frame.jpg','roof_floor.jpg'])
+
+obj.declare_obj('pine_forest.obj',['pines.png','ground.jpeg'])
+
+obj.declare_obj('mountain.obj',['rocks.jpg'])
+
+obj.declare_obj('tree.obj',['folhas.jpg','tronco.jpg'])
+
+obj.declare_obj('skydome.obj',['milkyway.jpg'])
+
+obj.declare_obj('spaceship.obj',['spaceship.jpg'])
+
+obj.declare_obj('mothership.obj',['ms1.jpg','ms2.jpg','ms3.jpg','ms4.jpg','ms5.jpg'])
+
+obj.declare_obj('remains.obj',['limb.jpg','body.jpg','skull.jpg','stones.jpg','sticks.jpg'])
+
+obj.declare_obj('alien.obj',['blaster.jpg','alien.jpg'])
+
+obj.declare_obj('stove.obj',['stove.jpeg'])
+
+# Envia variável de programa para módulo objects.py
+obj.program = program
+
+##############################################
+################### BUFFERS ##################
+
+# Declara buffers da GPU e envia para módulo shader_buffer.py
+sb.buffer = glGenBuffers(2)
+
+# Declara variável para armazenar lista de vértices
+vertices = np.zeros(len(obj.vertices_list), [("position", np.float32, 3)])
+# Obtém lista de vértices do módulo objetcs.py
+vertices['position'] = obj.vertices_list
+# Envia lista de vértices para buffer da GPU
+sb.vertex_buffer(vertices)
+
+# Declara variável para armazenar lista de coordenadas de textura
+textures = np.zeros(len(obj.textures_coord_list), [("position", np.float32, 2)]) # duas coordenadas
+# Obtém lista de coordenadas de textura do módulo objetcs.py
+textures['position'] = obj.textures_coord_list
+# Envia lista de coordenadas de texturas para buffer da GPU
+sb.texture_buffer(textures)
+
+##############################################
+################### COMANDOS #################
+
+# Envia variáveis de janela para modulo commands.py
+cmd.altura = altura
+cmd.largura = largura
+# Envia variável de janela para modulo commands.py
+cmd.window = window
+# Ativa os comandos de teclado e mouse
+cmd.commands()
 
 
 #########################################
 #########################################
-
-
-# Instanciação dos vértices
-mato = gen_mato()
-rua = gen_rua()
-carro = Carro()
-nuvem0 = Nuvem(0)
-nuvem1 = Nuvem(1)
-nuvem2 = Nuvem(2)
-nuvem3 = Nuvem(3)
-nuvem4 = Nuvem(4)
-nuvem5 = Nuvem(5)
-sol = Sol()
-faixa0=Faixas(0)
-
-faixa = []
-for i in range(10):
-    faixa.append(Faixas(i))
-
-
-lista = [nuvem0.coord,nuvem1.coord,mato,rua,carro.corpo,carro.roda1,carro.roda2,
-carro.calota1,carro.calota2,carro.aro1,carro.aro2,sol.coord,sol.raios,carro.corpo2,
-faixa[0].coord,faixa[1].coord,faixa[2].coord,faixa[3].coord,faixa[4].coord,
-faixa[5].coord,faixa[6].coord,faixa[7].coord,faixa[8].coord,faixa[9].coord
-]
-# Concatena os vertices para enviar ao buffer
-vertices = np.concatenate((lista))
-
-
-
-#########################################
-#########################################
-
-
-# Roda os buffers, recebe programa e os vertices e retorna loc e loc_color
-loc, loc_color = run_buffer(program, vertices)
 
 # Mostra a janela
 glfw.show_window(window)
+glfw.set_cursor_pos(window, cmd.lastX, cmd.lastY)
 
-# Ativa os comandos do teclado
-key_c.run_key_commands(window)
+# Configurações do OpenGL
+glEnable(GL_BLEND)
+glEnable(GL_DEPTH_TEST) ### importante para 3D
 
+# Variáveis para laço principal
+move_inc = 0
+# Variáveis de câmera
+cameraPos   = cmd.cameraPos
+cameraFront = cmd.cameraFront
+cameraUp    = cmd.cameraUp
 
-# Envia para classes as variáveis de programa, loc e loc_color
-Nuvem.program = program
-Nuvem.loc = loc
-Nuvem.loc_color = loc_color
-
-Carro.program = program
-Carro.loc = loc
-Carro.loc_color = loc_color
-
-Sol.program = program
-Sol.loc = loc
-Sol.loc_color = loc_color
-
-Faixas.program = program
-Faixas.loc = loc
-Faixas.loc_color = loc_color
-
-
-# inicialização de variaveis
-carro_x = 0
-carro_y = 0
-ceu_x = 0
-ceu_y = 0
-ceu_alt_x = 0
-escala_sol = 1
-#key_c.program = program
-cont_faixa = 0
+#########################################
+#########################################
 
 # Loop principal
 while not glfw.window_should_close(window):
 
-    #
-    glfw.poll_events()
+    glfw.poll_events() 
+    
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    
+    glClearColor(1.0, 1.0, 1.0, 1.0)
+    
+    # Ativa ou desativa modo poligonal
+    if cmd.polygonal_mode==True:
+        glPolygonMode(GL_FRONT_AND_BACK,GL_LINE)
+    if cmd.polygonal_mode==False:
+        glPolygonMode(GL_FRONT_AND_BACK,GL_FILL)
+    
+    # Insere o céu
+    obj.draw_sky(move_inc)
 
+    # Insere as naves espaciais
+    obj.draw_spaceships(move_inc)
 
+    # Insere a cena estática
+    obj.draw_scene()
 
+    # Incremento do movimento
+    move_inc += 0.1
+ 
+    # Roda matriz view
+    mat_view = cmd.view()
+    loc_view = glGetUniformLocation(program, "view")
+    glUniformMatrix4fv(loc_view, 1, GL_FALSE, mat_view)
 
-    # comparações para restringir os limites dos comandos
-    if escala_sol < 2:
-        escala_sol = escala_sol + 0.001*key_c.f_sol_s
+    # Roda matriz projection
+    mat_projection = cmd.projection()
+    loc_projection = glGetUniformLocation(program, "projection")
+    glUniformMatrix4fv(loc_projection, 1, GL_FALSE, mat_projection)   
 
-    ceu_x = ceu_x - 0.0005
-    ceu_alt_x = ceu_alt_x - 0.015*key_c.f_ceu_x
-    ceu_x = ceu_x - 0.001*key_c.f_ceu_x # SPACE
-    ceu_y = ceu_y + 0.0005
-
-    if  carro_y > 0:
-        carro_y = carro_y - (0.01*key_c.f_carro_yb)*key_c.f_ceu_x # S, depende de SPACE apertado
-
-    if carro_y < 0.4:
-        carro_y = carro_y + (0.01*key_c.f_carro_ya)*key_c.f_ceu_x # W, depende de SPACE apertado
-
-    if  carro_x > 0:
-        carro_x = carro_x - 0.01*key_c.f_carro_xa # A
-    if carro_x < 1.4:
-        carro_x = carro_x + 0.01*key_c.f_carro_xb # D
-
-
-
-    glClear(GL_COLOR_BUFFER_BIT)
-    glClearColor(*cor_bg, 1.0)
-
-    # matriz identidade
-    mat_id = np.array([             1.0, 0.0, 0.0, 0.0,
-                                    0.0, 1.0, 0.0, 0.0,
-                                    0.0, 0.0, 1.0, 0.0,
-                                    0.0, 0.0, 0.0, 1.0], np.float32)
-
-
-    # Desenha o sol
-    sol.move(lista,0,0,0,ceu_y,escala_sol)
-
-    # Cenário
-    loc = glGetUniformLocation(program, "mat_transformation")
-    glUniformMatrix4fv(loc, 1, GL_TRUE, mat_id)
-
-
-   # Desenha mato
-    insert_obj(loc_color,lista,mato,0,cor_mato)
-
-    # Desenha rua
-    insert_obj(loc_color,lista,rua,0,cor_rua)
-
-
-
-    # Dexenha todas as faixas
-    for i in range(len(faixa)):
-
-        faixa[i].move(lista,cont_faixa,0,carro_x,ceu_alt_x)
-        cont_faixa = cont_faixa+0.8
-    cont_faixa = 0
-
-
-
-    # insere o carro
-    carro.move(lista,-0.7,-0.630 ,carro_x,carro_y,ceu_alt_x)
-    # insere nuvem
-    nuvem0.move(lista,0.3,0.3,ceu_x)
-    nuvem1.move(lista,-0.6,0.6,ceu_x)
-
-
+    
     glfw.swap_buffers(window)
 
 glfw.terminate()
