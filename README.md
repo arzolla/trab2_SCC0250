@@ -3,6 +3,8 @@
 
 ## Trabalho 2 da disciplina SCC0250 - Computação Gráfica
 
+https://github.com/virtolino/trab2_SCC0250
+
 **Aluno:** *Victor de Mattos Arzolla*
 
 **NUSP:** *9039312*
