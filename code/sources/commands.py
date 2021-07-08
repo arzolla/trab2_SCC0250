@@ -66,6 +66,7 @@ def commands():
         global cameraPos, cameraFront, cameraUp, polygonal_mode
         global cameraPos_antes
 
+        # Movimento da camera
         cameraSpeed = 0.2
         if key == 87 and (action==1 or action==2): # tecla W
             cameraPos += cameraSpeed * cameraFront
@@ -86,44 +87,43 @@ def commands():
         if cameraPos[1] <= -0.092 : cameraPos[1] = -0.092
         if cameraPos[1] >= 17 : cameraPos[1] = 17
         
-        # raio máximo do movimento no plano
+        # Raio máximo do movimento no plano
         r_max = 20
-        # raio atual da câmera
+        # Raio atual da posição da câmera
         r_atual = ((cameraPos[0]**2) + (cameraPos[2]**2))**(1/2)
 
 
-        # se raio atual for menor q raio maximo
+        # Se raio atual for menor q raio maximo
         if r_atual <= r_max:
-            # salva posição atual
+            # Salva posição atual
             cameraPos_antes[0] = cameraPos[0]
             cameraPos_antes[2] = cameraPos[2]
-        else: # se raio atual for maior q raio maximo
-            # mantém a posição anterior
+        else: # Se raio atual for maior q raio maximo
+            # Mantém a posição anterior
             cameraPos[0] = cameraPos_antes[0]
             cameraPos[2] = cameraPos_antes[2]
 
 
         global fov, near, far
-
+        # Tecla F para aumentar FOV
         if key == 70 and (action==1 or action==2): # tecla F
             fov += 1
-
+        # Tecla G para diminuir FOV
         if key == 71 and (action==1 or action==2): # tecla G
             fov -= 1
-        
+        # Tecla C para aumentar NEAR
         if key == 67 and (action==1 or action==2): # tecla C
             near *= 1.05
-        
+        # Tecla V para diminuir NEAR
         if key == 86 and (action==1 or action==2): # tecla V
             near /= 1.05
-            
+        # Tecla B para aumentar FAR    
         if key == 66 and (action==1 or action==2): # tecla B
             far *= 1.01
-        
+        # Tecla N para diminuir FAR   
         if key == 78 and (action==1 or action==2): # tecla N
             far /= 1.01
-    
-       # print(key,scancode,action,mods)            
+              
                      
     # Define eventos do mouse
     def mouse_event(window, xpos, ypos):
@@ -151,7 +151,6 @@ def commands():
         # >= 90   OU   <= -90
         if pitch >= 89.99: pitch = 89.99
         if pitch <= -89.99: pitch = -89.99
-
 
         front = glm.vec3()
 

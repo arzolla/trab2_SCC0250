@@ -1,4 +1,4 @@
-#!/usr/bin/env python37
+#!/usr/bin/env python3
 #########################################
 ##### SCC0250 - Computação Gráfica ######
 ####### Trabalho 2 - Cenário 3D #########
@@ -24,7 +24,6 @@ import shader_buffer as sb
 # Importa módulo com os codigos referentes aos comandos de teclado
 import commands as cmd
 import objects as obj
-
 
 # inicializa o GLFW
 if  glfw.init():
@@ -92,16 +91,13 @@ sb.buffer = glGenBuffers(2)
 vertices = np.zeros(len(obj.vertices_list), [("position", np.float32, 3)])
 # Obtém lista de vértices do módulo objetcs.py
 vertices['position'] = obj.vertices_list
-
 # Envia lista de vértices para buffer da GPU
 sb.vertex_buffer(vertices)
-
 
 # Declara variável para armazenar lista de coordenadas de textura
 textures = np.zeros(len(obj.textures_coord_list), [("position", np.float32, 2)]) # duas coordenadas
 # Obtém lista de coordenadas de textura do módulo objetcs.py
 textures['position'] = obj.textures_coord_list
-
 # Envia lista de coordenadas de texturas para buffer da GPU
 sb.texture_buffer(textures)
 
@@ -111,13 +107,10 @@ sb.texture_buffer(textures)
 # Envia variáveis de janela para modulo commands.py
 cmd.altura = altura
 cmd.largura = largura
-
+# Envia variável de janela para modulo commands.py
 cmd.window = window
 # Ativa os comandos de teclado e mouse
 cmd.commands()
-
-
-
 
 
 #########################################
@@ -132,7 +125,7 @@ glEnable(GL_BLEND)
 glEnable(GL_DEPTH_TEST) ### importante para 3D
 
 # Variáveis para laço principal
-rotacao_inc = 0
+move_inc = 0
 # Variáveis de câmera
 cameraPos   = cmd.cameraPos
 cameraFront = cmd.cameraFront
@@ -151,32 +144,33 @@ while not glfw.window_should_close(window):
     
     glClearColor(1.0, 1.0, 1.0, 1.0)
     
+    # Ativa ou desativa modo poligonal
     if cmd.polygonal_mode==True:
         glPolygonMode(GL_FRONT_AND_BACK,GL_LINE)
     if cmd.polygonal_mode==False:
         glPolygonMode(GL_FRONT_AND_BACK,GL_FILL)
     
+    # Insere o céu
+    obj.draw_sky(move_inc)
 
-    obj.draw_sky(rotacao_inc)
+    # Insere as naves espaciais
+    obj.draw_spaceships(move_inc)
 
-    obj.draw_spaceships(rotacao_inc)
-    
+    # Insere a cena estática
     obj.draw_scene()
 
-
-    rotacao_inc += 0.1
+    # Incremento do movimento
+    move_inc += 0.1
  
-  
+    # Roda matriz view
     mat_view = cmd.view()
     loc_view = glGetUniformLocation(program, "view")
     glUniformMatrix4fv(loc_view, 1, GL_FALSE, mat_view)
 
+    # Roda matriz projection
     mat_projection = cmd.projection()
     loc_projection = glGetUniformLocation(program, "projection")
     glUniformMatrix4fv(loc_projection, 1, GL_FALSE, mat_projection)   
-
-    
-    
 
     
     glfw.swap_buffers(window)

@@ -67,7 +67,6 @@ def run_shader():
         print(error)
         raise RuntimeError("Erro de compilacao do Fragment Shader")
 
-
     # Associando os programas compilado ao programa principal
     glAttachShader(program, vertex)
     glAttachShader(program, fragment)
@@ -82,7 +81,6 @@ def run_shader():
     glUseProgram(program)
 
     return program
-
 
 ###########################
 ######### BUFFERS #########

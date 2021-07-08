@@ -74,11 +74,11 @@ def load_texture_from_file(texture_id, img_textura):
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data)
     #glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data)
 
-# Acesso aos paths de modelos
+# Acesso ao path de modelos
 def model_path(obj):
     return os.path.join(sys.path[0],'models',obj)
 
-# Acesso aos paths de texturas
+# Acesso ao path de texturas
 def tex_path(mod,tex):
     return os.path.join(sys.path[0],'textures',mod,tex)
 
@@ -132,8 +132,8 @@ def declare_obj(model, textures):
 
     
     ### inserindo coordenadas de textura do modelo no vetor de texturas
-    # Para cada arquivo de textura inserido para este objeto
     texture_index[model] = []
+    # Loop repete para cada arquivo de textura inserido para este objeto
     for i in range(len(textures)):
         global texture_counter
         ### carregando textura equivalente e definindo um id (buffer)
@@ -157,7 +157,6 @@ def draw_obj(modelo, mat_model):
     for i in range(len(vertex_index[modelo])-1):
         #define id da textura do modelo
         glBindTexture(GL_TEXTURE_2D, texture_index[modelo][i])
-
 
         # desenha o modelo
         glDrawArrays(GL_TRIANGLES, vertex_index[modelo][i],vertex_index[modelo][1+i]-vertex_index[modelo][i] ) ## renderizando
@@ -189,7 +188,7 @@ def model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z):
 ################### OBJETOS ##################
 ##############################################
 
-
+# Função para desenhar o céu
 def draw_sky(rotacao_inc):
     # rotacao
     angle = 90 +rotacao_inc/10;
@@ -204,6 +203,7 @@ def draw_sky(rotacao_inc):
 
     draw_obj('skydome.obj', mat_model)
 
+# Função para desenhar as naves espaciais
 def draw_spaceships(tz_inc):
     # rotacao
     angle = 0.0;
@@ -225,6 +225,7 @@ def draw_spaceships(tz_inc):
     mat_model = model(angle, r_x, r_y, r_z, t_x, t_y, t_z, s_x, s_y, s_z)
     draw_obj('mothership.obj', mat_model)
 
+# Função para desenhar a cena estática
 def draw_scene():
     # rotacao
     angle = 0.0;
