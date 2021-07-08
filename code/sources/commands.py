@@ -63,7 +63,7 @@ def commands():
     # Define eventos do teclado
     def key_event(window,key,scancode,action,mods):
         
-        global cameraPos, cameraFront, cameraUp, polygonal_mode
+        global cameraPos, cameraFront, cameraUp
         global cameraPos_antes
 
         # Movimento da camera
@@ -80,9 +80,6 @@ def commands():
         if key == 68 and (action==1 or action==2): # tecla D
             cameraPos += .7*glm.normalize(glm.cross(cameraFront, cameraUp)) * cameraSpeed
             
-        if key == 80 and action==1:
-            polygonal_mode = not(polygonal_mode)
-
         # limitando altura da camera dentro do cenário
         if cameraPos[1] <= -0.092 : cameraPos[1] = -0.092
         if cameraPos[1] >= 17 : cameraPos[1] = 17
@@ -104,7 +101,10 @@ def commands():
             cameraPos[2] = cameraPos_antes[2]
 
 
-        global fov, near, far
+        global fov, near, far, polygonal_mode
+        # Tecla P para ativar/desativar modo poligonal
+        if key == 80 and action==1:
+            polygonal_mode = not(polygonal_mode)
         # Tecla F para aumentar FOV
         if key == 70 and (action==1 or action==2): # tecla F
             fov += 1

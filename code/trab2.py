@@ -134,7 +134,6 @@ cameraUp    = cmd.cameraUp
 #########################################
 #########################################
 
-
 # Loop principal
 while not glfw.window_should_close(window):
 
