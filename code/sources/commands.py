@@ -53,11 +53,6 @@ cameraFront = glm.vec3(0.0,  0.0, -1.0);
 cameraUp    = glm.vec3(0.0,  1.0,  0.0);
 cameraPos_antes = glm.vec3(0.0,  1.0,  0.0);
 
-
-
-
-
-
 def commands():
 
     # Define eventos do teclado
@@ -89,7 +84,6 @@ def commands():
         # Raio atual da posição da câmera
         r_atual = ((cameraPos[0]**2) + (cameraPos[2]**2))**(1/2)
 
-
         # Se raio atual for menor q raio maximo
         if r_atual <= r_max:
             # Salva posição atual
@@ -100,9 +94,8 @@ def commands():
             cameraPos[0] = cameraPos_antes[0]
             cameraPos[2] = cameraPos_antes[2]
 
-
         global fov, near, far, polygonal_mode
-        # Tecla P para ativar/desativar modo poligonal
+        # Tecla P para ativar/desativar modo poligonal  
         if key == 80 and action==1:
             polygonal_mode = not(polygonal_mode)
         # Tecla F para aumentar FOV
@@ -119,10 +112,10 @@ def commands():
             near /= 1.05
         # Tecla B para aumentar FAR    
         if key == 66 and (action==1 or action==2): # tecla B
-            far *= 1.01
+            far *= 1.05
         # Tecla N para diminuir FAR   
         if key == 78 and (action==1 or action==2): # tecla N
-            far /= 1.01
+            far /= 1.05
               
                      
     # Define eventos do mouse

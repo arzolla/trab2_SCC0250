@@ -23,6 +23,7 @@ sys.path.append(os.path.join(sys.path[0],'sources'))
 import shader_buffer as sb
 # Importa módulo com os codigos referentes aos comandos de teclado
 import commands as cmd
+# Importa módulo com os codigos referentes aos objetos
 import objects as obj
 
 # inicializa o GLFW
@@ -102,7 +103,7 @@ textures['position'] = obj.textures_coord_list
 sb.texture_buffer(textures)
 
 ##############################################
-################### COMANDOS #################
+################## COMANDOS ##################
 
 # Envia variáveis de janela para modulo commands.py
 cmd.altura = altura
@@ -112,9 +113,8 @@ cmd.window = window
 # Ativa os comandos de teclado e mouse
 cmd.commands()
 
-
-#########################################
-#########################################
+##############################################
+################ CONFIGURAÇÕES ###############
 
 # Mostra a janela
 glfw.show_window(window)
@@ -124,17 +124,13 @@ glfw.set_cursor_pos(window, cmd.lastX, cmd.lastY)
 glEnable(GL_BLEND)
 glEnable(GL_DEPTH_TEST) ### importante para 3D
 
+##############################################
+################## VARIÁVEIS #################
+
 # Variáveis para laço principal
 move_inc = 0
-# Variáveis de câmera
-cameraPos   = cmd.cameraPos
-cameraFront = cmd.cameraFront
-cameraUp    = cmd.cameraUp
 
-#########################################
-#########################################
-
-# Loop principal
+# Laço principal
 while not glfw.window_should_close(window):
 
     glfw.poll_events() 
