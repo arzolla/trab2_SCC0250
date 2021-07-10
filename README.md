@@ -1,7 +1,7 @@
 
 # Trabalho 2 SCC0250 - Computação Gráfica
 
-### Trabalho 2 da disciplina SCC0250 - Computação Gráfica oferecida pelo ICMC/USP - São Carlos
+### Trabalho 2 da disciplina de Computação Gráfica oferecida pelo ICMC/USP - São Carlos
 
 https://github.com/virtolino/trab2_SCC0250
 
