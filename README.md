@@ -19,7 +19,7 @@ ___
 ## Sobre:
 O trabalho foi desenvolvido em ```Python 3.7.9``` utilizando a biblioteca ```PyOpenGL```.
 
- **Dependências:**
+**Dependências:**
  
 glfw              2.1.0
 
@@ -36,8 +36,21 @@ ___
 
 ## Instruções:
 
-
 Execute o arquivo ```/code/trab2.py``` para rodar o programa
+
+**Controles:**
+
+<kbd>A</kbd><kbd>W</kbd><kbd>S</kbd><kbd>D</kbd> Para mover a posição da câmera
+
+<kbd>Mouse</kbd> Para mover o ângulo da câmera
+
+<kbd>P</kbd> Para ativar/desativar modo poligonal
+
+<kbd>F</kbd><kbd>G</kbd> Para aumentar/diminuir o FOV
+
+<kbd>C</kbd><kbd>V</kbd> Para aumentar/diminuir o NEAR
+
+<kbd>B</kbd><kbd>N</kbd> Para aumentar/diminuir o FAR
 
 <br />
 
