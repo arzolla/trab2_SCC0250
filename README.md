@@ -55,13 +55,13 @@ Execute o arquivo ```/code/trab2.py``` para rodar o programa
 <br />
 
 ___
-## Materiais Utilizados [![CC BY 4.0][cc-by-shield]][cc-by] 
+## Materiais Utilizados   [![CC BY 4.0][cc-by-shield]][cc-by] 
 
 
 
-Todos os materias são utilizados sob a licença [Creative Commons Attribution 4.0 International License][cc-by]
+Todos os materias são utilizados sob a licença
 
-[![CC BY 4.0][cc-by-image]][cc-by]
+[![CC BY 4.0][cc-by-image]][cc-by]  [Creative Commons Attribution 4.0 International License][cc-by]
 
 
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
